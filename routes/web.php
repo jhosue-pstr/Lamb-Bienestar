@@ -48,6 +48,9 @@ Route::get('/mas-informacion2', function () {
     return view('mas-informacion2');
 })->name('mas-informacion2');
 
+Route::get('/consultas', function () {
+    return view('consultas');
+})->name('consultas');
 // Rutas para creación y gestión de eventos
 Route::get('/anuncios', [AnuncioController::class, 'anuncios'])->name('anuncios.index');
 
