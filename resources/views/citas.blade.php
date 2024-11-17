@@ -50,7 +50,7 @@
                     </ul>
                     <p class="mt-6 text-lg">Descripción: La sección de Psicología de la UPEU se dedica a brindar apoyo integral a los estudiantes, personal docente y administrativo, promoviendo su bienestar mental y emocional. Los servicios incluyen:</p>
                 `,
-                boton: "/crear-consulta"
+                boton: "/crear-cita"
             },
 
             {
@@ -67,7 +67,7 @@
                     </ul>
                     <p class="mt-4 text-lg">Descripción: El Centro Médico de la UPEU está enfocado en garantizar la salud física de la comunidad universitaria a través de un enfoque preventivo y de atención primaria. Sus servicios abarcan:</p>
                 `,
-                boton: "/crear-consulta"
+                boton: "/crear-cita"
             },
 
             {
@@ -84,7 +84,7 @@
                     </ul>
                     <p class="mt-4 text-lg">Descripción: La Capellanía de la UPEU está comprometida en ofrecer un acompañamiento espiritual y moral a los estudiantes, personal y sus familias. Sus actividades incluyen:</p>
                 `,
-                boton: "/crear-consulta"
+                boton: "/crear-cita"
             },
 
             {
@@ -101,7 +101,7 @@
                     </ul>
                     <p class="mt-4 text-lg">Descripción: El servicio de Atención Médica en la UPEU está orientado a ofrecer una respuesta rápida y eficiente a las necesidades de salud de la comunidad universitaria. Se enfoca en:</p>
                 `,
-                boton: "/crear-consulta"
+                boton: "/crear-cita"
             },
 
             {
@@ -118,7 +118,7 @@
                     </ul>
                     <p class="mt-4 text-lg">Descripción: El área de Sostenibilidad Ambiental de la UPEU busca fomentar una cultura de respeto y cuidado del medio ambiente en toda la comunidad universitaria. Sus iniciativas incluyen:</p>
                 `,
-                boton: "/crear-consulta"
+                boton: "/crear-cita"
             }
         ];
 

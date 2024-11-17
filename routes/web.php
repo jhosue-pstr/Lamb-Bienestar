@@ -2,6 +2,7 @@
 
 use App\Livewire\Admin\RoleMain;
 use App\Http\Controllers\AnuncioController;
+use App\Http\Controllers\CitaController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EventosAnunciosController;
 use App\Http\Controllers\InformacionController;
@@ -48,9 +49,9 @@ Route::get('/mas-informacion2', function () {
     return view('mas-informacion2');
 })->name('mas-informacion2');
 
-Route::get('/consultas', function () {
-    return view('consultas');
-})->name('consultas');
+Route::get('/citas', function () {
+    return view('citas');
+})->name('citas');
 // Rutas para creación y gestión de eventos
 Route::get('/anuncios', [AnuncioController::class, 'anuncios'])->name('anuncios.index');
 
@@ -108,3 +109,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+
+Route::get('/crear-citas', [CitaController::class, 'index']);
+Route::get('/crear-citas/buscar-estudiante', [CitaController::class, 'buscarEstudiante']);
+Route::post('/crear-citas/guardar-cita', [CitaController::class, 'guardarCita']);
+Route::get('/crear-citas/obtener-citas', [CitaController::class, 'obtenerCitas']);
