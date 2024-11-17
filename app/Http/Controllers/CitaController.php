@@ -30,7 +30,6 @@ class CitaController extends Controller
     // Guardar una nueva cita en la base de datos
     public function guardarCita(Request $request)
     {
-        // Validar los campos de entrada
         $validatedData = $request->validate([
             'codigo' => 'required',
             'area' => 'required',
@@ -38,16 +37,14 @@ class CitaController extends Controller
             'hora' => 'required|date_format:H:i',
         ]);
 
-        // Verificar si ya existe una cita para la misma fecha y hora
         $citaExistente = Cita::where('fecha', $validatedData['fecha'])
             ->where('hora', $validatedData['hora'])
             ->first();
 
         if ($citaExistente) {
-            return response()->json(['error' => 'Ya existe una cita reservada para esta fecha y hora.'], 409);
+            return response()->json(['error' => 'Ya existe una cita para esta fecha y hora.'], 409);
         }
 
-        // Guardar la nueva cita
         Cita::create([
             'codigo' => $validatedData['codigo'],
             'area' => $validatedData['area'],

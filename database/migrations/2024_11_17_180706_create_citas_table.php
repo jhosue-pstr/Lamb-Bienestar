@@ -11,12 +11,13 @@ return new class extends Migration
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
             $table->integer('codigo');
-            $table->enum('area', ['Psicologia', 'Centro Medico', 'Capellania', 'Atencion Medica', 'Sostenibilidad Ambiental']);
+            $table->string('area');
             $table->string('motivo')->nullable();
             $table->date('fecha');
             $table->time('hora');
             $table->timestamps();
         });
+
     }
 
     public function down(): void
