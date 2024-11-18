@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\RoleMain;
+use App\Livewire\Solicitud\SolicitudMain;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,4 +20,6 @@ Route::get('/dashboard', function () {
 
 
     Route::get('/Roles', RoleMain::class)->name('Roles');
+    Route::get('/Solicitudes', SolicitudMain::class)->name('Solicitudes');
+
 });
