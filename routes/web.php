@@ -54,6 +54,7 @@ Route::get('/citas', function () {
 })->name('citas');
 // Rutas para creación y gestión de eventos
 Route::get('/anuncios', [AnuncioController::class, 'anuncios'])->name('anuncios.index');
+Route::get('/crear-citas', [CitaController::class, 'crear'])->name('crear-citas');
 
 
 Route::get('/api/anuncio/{id}', [AnuncioController::class, 'show']);
@@ -111,7 +112,6 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-Route::get('/crear-citas', [CitaController::class, 'index']);
 Route::get('/crear-citas/buscar-estudiante', [CitaController::class, 'buscarEstudiante']);
 Route::post('/crear-citas/guardar-cita', [CitaController::class, 'guardarCita']);
 Route::get('/crear-citas/obtener-citas', [CitaController::class, 'obtenerCitas']);

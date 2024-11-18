@@ -199,7 +199,42 @@ async function fillEventDetails() {
 
 
 
+document.addEventListener("DOMContentLoaded", async () => {
+    // Obtener el ID del anuncio de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const anuncioId = urlParams.get('id');
 
+    if (anuncioId) {
+        await cargarDatosAnuncio(anuncioId);
+    }
+});
+
+async function cargarDatosAnuncio(id) {
+    try {
+        const response = await fetch(`/api/anuncio-json/${id}`);
+        if (!response.ok) {
+            throw new Error("Error al obtener los datos del anuncio");
+        }
+
+        const anuncio = await response.json();
+
+        // Autocompletar los campos del formulario
+        const eventNameSelect = document.getElementById("eventName");
+
+        // Establecer el valor seleccionado en el select
+        eventNameSelect.value = anuncio.id;
+
+        document.getElementById("eventLocation").value = anuncio.ubicacion || '';
+        document.getElementById("eventDate").value = anuncio.fecha || '';
+        document.getElementById("eventTime").value = anuncio.hora || '';
+        document.getElementById("eventDescription").value = anuncio.descripcion || '';
+
+        const eventImage = document.getElementById("event-image");
+        eventImage.src = anuncio.afiche ? `/${anuncio.afiche}` : '/imagenes/default.jpeg';
+    } catch (error) {
+        console.error("Error al cargar los detalles del anuncio:", error);
+    }
+}
 
 
 

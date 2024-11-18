@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class CitaController extends Controller
 {
     // Mostrar la vista principal
-    public function index()
+    public function crear()
     {
         return view('crear-citas');
     }

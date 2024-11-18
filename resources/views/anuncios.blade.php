@@ -21,12 +21,10 @@
 
             <!-- Generar dinámicamente los slides desde la base de datos -->
             @foreach ($anuncios as $index => $anuncio)
-            <a href="{{ route('mas-informacion2', $anuncio->id) }}" class="flex items-center justify-center flex-shrink-0 w-full p-10" style="width: 100%;">
-                <!-- Imagen del anuncio -->
+            <a href="{{ route('mas-informacion2', ['id' => $anuncio->id]) }}" class="flex items-center justify-center flex-shrink-0 w-full p-10" style="width: 100%;">
                 <div class="w-1/2">
                     <img src="{{ asset($anuncio->afiche) }}" alt="Afiche del anuncio" class="object-cover w-full rounded-lg shadow-lg h-96">
                 </div>
-                <!-- Información del anuncio -->
                 <div class="w-1/2 p-8 bg-gray-100 rounded-lg shadow-lg">
                     <h2 class="mb-4 text-3xl font-bold">{{ $anuncio->nombre }}</h2>
                     <p class="mb-2 text-xl"><strong>Fecha:</strong> {{ $anuncio->fecha }}</p>
@@ -34,6 +32,7 @@
                     <p class="mt-4 text-lg text-gray-700">{{ Str::limit($anuncio->descripcion, 100) }}</p>
                 </div>
             </a>
+
             @endforeach
         </div>
 
@@ -63,12 +62,13 @@
     <!-- Cuadros de Información con Anuncios dinámicos -->
     <div class="container grid grid-cols-1 gap-8 py-10 mx-auto sm:grid-cols-2 md:grid-cols-3">
         @foreach ($anuncios as $anuncio)
-        <a href="{{ route('mas-informacion2', $anuncio->id) }}" class="p-6 transition-transform transform bg-white rounded-lg shadow-lg hover:scale-105 hover:rotate-1">
+        <a href="{{ route('mas-informacion2', ['id' => $anuncio->id]) }}" class="p-6 transition-transform transform bg-white rounded-lg shadow-lg hover:scale-105 hover:rotate-1">
             <img src="{{ asset($anuncio->afiche) }}" alt="{{ $anuncio->nombre }}" class="object-cover w-full h-48 mb-4 rounded-lg">
             <h3 class="text-xl font-bold">{{ $anuncio->nombre }}</h3>
             <p class="text-gray-600">{{ Str::limit($anuncio->descripcion, 50) }}</p>
             <p class="mt-2 text-sm">Fecha: {{ $anuncio->fecha }} | Hora: {{ $anuncio->hora }}</p>
         </a>
+
         @endforeach
     </div>
 

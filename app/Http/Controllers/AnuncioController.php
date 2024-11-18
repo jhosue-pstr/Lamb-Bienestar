@@ -10,10 +10,14 @@ class AnuncioController extends Controller
 {
 
     public function getAnuncioJson($id)
-{
-    $anuncio = Anuncio::findOrFail($id);
-    return response()->json($anuncio);
-}
+    {
+        $anuncio = Anuncio::find($id);
+        if (!$anuncio) {
+            return response()->json(['error' => 'Anuncio no encontrado'], 404);
+        }
+        return response()->json($anuncio);
+    }
+
 
     public function masInformacion2()
     {
