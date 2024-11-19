@@ -1,13 +1,13 @@
 <div class="flex h-screen bg-gray-100">
 
-    <div class="hidden md:flex flex-col w-64 bg-gray-800">
+    <div class="flex-col hidden w-64 bg-gray-800 md:flex">
         <div class="flex items-center justify-center h-16 bg-gray-900">
-            <span class="text-white font-bold uppercase">ICONO !!!!</span>
+            <span class="font-bold text-white uppercase">ICONO !!!!</span>
         </div>
 
         <div class="flex flex-col flex-1 overflow-y-auto">
-            <div class="text-center mt-12 mb-12">
-                <img src="https://tecdn.b-cdn.net/img/new/avatars/5.webp" class="mx-auto mb-4 w-32 rounded-lg"
+            <div class="mt-12 mb-12 text-center">
+                <img src="https://tecdn.b-cdn.net/img/new/avatars/5.webp" class="w-32 mx-auto mb-4 rounded-lg"
                     alt="Avatar" />
                 <h5 class="mb-2 text-xl font-medium leading-tight">John Doe</h5>
                 <p class="text-neutral-500 dark:text-neutral-400">Web designer</p>
@@ -22,13 +22,13 @@
                     </svg>
                     Inicio
                 </a>
-                <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+                <a href="{{ route('appointments.history') }}" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700 {{ Request::routeIs('appointments.history') ? 'bg-gray-700' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
-                    Historial
+                    <span class="ml-2">Historial</span>
                 </a>
                 <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

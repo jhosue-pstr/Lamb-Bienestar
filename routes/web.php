@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentHistoryController;
 use App\Livewire\Admin\RoleMain;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,6 @@ Route::get('/dashboard', function () {
 
 
     Route::get('/Roles', RoleMain::class)->name('Roles');
+    Route::get('/appointment-history', [AppointmentHistoryController::class, 'index'])->name('appointments.history');
+    Route::get('/appointments/{appointment}', [AppointmentHistoryController::class, 'show'])->name('appointments.show');
 });
