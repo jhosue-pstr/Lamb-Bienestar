@@ -9,5 +9,12 @@ class Recordatorio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo', 'nombre', 'ubicacion', 'fecha', 'hora', 'descripcion'];
+    protected $fillable = [
+        'tipo',
+        'nombre',
+        'ubicacion',
+        'fecha',
+        'hora',
+        'descripcion',
+    ];
 }

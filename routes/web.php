@@ -28,6 +28,7 @@ Route::get('/eventos-anuncios', [EventosAnunciosController::class, 'index'])->na
 Route::get('/mas-informacion', [InformacionController::class, 'index'])->name('mas-informacion');
 Route::get('/api/eventos/{tipo}', [InformacionController::class, 'getEventosByTipo']);
 Route::get('/api/evento/{id}', [InformacionController::class, 'getEventoById']);
+Route::get('/api/eventos', [EventosAnunciosController::class, 'filtrarPorTipo']);
 
 // Rutas para API de eventos
 Route::get('/api/eventos/{tipo}', [EventoController::class, 'getEventosByTipo']);
@@ -36,10 +37,15 @@ Route::post('/api/evento/{id}', [EventoController::class, 'getDetallesEvento']);
 
 
 // Rutas para RecordatoriosRoute::get('/api/anuncio/{id}', [AnuncioController::class, 'show']);
+Route::get('/mas-informacion/{id}', [EventosAnunciosController::class, 'mostrar'])->name('mas-informacion');
 
-Route::post('/recordatorio', [RecordatorioController::class, 'store']);
-Route::get('/api/recordatorio', [RecordatorioController::class, 'getLatest']);
+Route::post('/recordatorio', [RecordatorioController::class, 'store'])->name('recordatorio.store');
+Route::get('/api/recordatorio', [RecordatorioController::class, 'getLatest'])->name('recordatorio.getLatest');
 Route::get('/api/anuncio-json/{id}', [AnuncioController::class, 'getAnuncioJson']);
+
+Route::get('/mas-informacion1', function () {
+    return view('mas-informacion1');
+})->name('mas-informacion1');
 
 // Vistas estáticas
 Route::get('/anuncios', function () {
@@ -56,6 +62,7 @@ Route::get('/citas', function () {
 Route::get('/anuncios', [AnuncioController::class, 'anuncios'])->name('anuncios.index');
 Route::get('/crear-citas', [CitaController::class, 'crear'])->name('crear-citas');
 
+Route::get('/api/eventos', [EventosAnunciosController::class, 'filtrarPorTipo']);
 
 Route::get('/api/anuncio/{id}', [AnuncioController::class, 'show']);
 Route::get('/mas-informacion2', [AnuncioController::class, 'masInformacion2'])->name('mas-informacion2');
