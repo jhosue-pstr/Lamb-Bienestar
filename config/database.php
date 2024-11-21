@@ -112,9 +112,25 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
-    ],
 
-    /*
+        'mysql' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'b7eyt3y56rhjg3jknams-mysql.services.clever-cloud.com'),  // Aquí pones la IP o el nombre de dominio de tu base de datos en la nube (Ej. 'db.example.com')
+            'port' => env('DB_PORT', '3306'),  // El puerto predeterminado de MySQL es 3306, si tienes otro puerto en la nube, usa ese.
+            'database' => env('DB_DATABASE', 'b7eyt3y56rhjg3jknams'),  // El nombre de tu base de datos (Ej. 'mi_base_de_datos')
+            'username' => env('DB_USERNAME', 'uvovwmwl4cwxv1td'),  // El nombre de usuario para acceder a la base de datos (Ej. 'root' o 'usuario')
+            'password' => env('DB_PASSWORD', '123KohT2DagcZBE9yaGj'),  // La contraseña asociada al usuario de la base de datos
+            'unix_socket' => env('DB_SOCKET', ''),  // Solo necesario si estás usando un socket de UNIX, generalmente lo dejamos vacío para conexiones remotas.
+            'charset' => 'utf8mb4',  // Codificación de caracteres recomendada para MySQL
+            'collation' => 'utf8mb4_unicode_ci',  // Interacción con los caracteres, asegurando compatibilidad con UTF-8
+            'prefix' => '',  // Si usas un prefijo para las tablas (por ejemplo, 'tbl_'), lo defines aquí
+            'strict' => true,  // Asegura que las consultas se ejecuten con el modo estricto habilitado
+            'engine' => null,  // Generalmente lo dejamos como null, a menos que tengas un motor específico como InnoDB o MyISAM
+        ],
+
+
+
+        /*
     |--------------------------------------------------------------------------
     | Migration Repository Table
     |--------------------------------------------------------------------------
@@ -125,12 +141,12 @@ return [
     |
     */
 
-    'migrations' => [
-        'table' => 'migrations',
-        'update_date_on_publish' => true,
-    ],
+        'migrations' => [
+            'table' => 'migrations',
+            'update_date_on_publish' => true,
+        ],
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Redis Databases
     |--------------------------------------------------------------------------
@@ -141,33 +157,33 @@ return [
     |
     */
 
-    'redis' => [
+        'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'phpredis'),
+            'client' => env('REDIS_CLIENT', 'phpredis'),
 
-        'options' => [
-            'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'options' => [
+                'cluster' => env('REDIS_CLUSTER', 'redis'),
+                'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
+            ],
+
+            'default' => [
+                'url' => env('REDIS_URL'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'username' => env('REDIS_USERNAME'),
+                'password' => env('REDIS_PASSWORD'),
+                'port' => env('REDIS_PORT', '6379'),
+                'database' => env('REDIS_DB', '0'),
+            ],
+
+            'cache' => [
+                'url' => env('REDIS_URL'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'username' => env('REDIS_USERNAME'),
+                'password' => env('REDIS_PASSWORD'),
+                'port' => env('REDIS_PORT', '6379'),
+                'database' => env('REDIS_CACHE_DB', '1'),
+            ],
+
         ],
-
-        'default' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_DB', '0'),
-        ],
-
-        'cache' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
-        ],
-
-    ],
-
+    ]
 ];
