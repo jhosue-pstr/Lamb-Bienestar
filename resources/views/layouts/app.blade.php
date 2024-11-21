@@ -23,13 +23,16 @@
 
     <div class="flex">
         <!-- Barra de navegación (columna fija) -->
-        <x-barra-nav class="w-1/4" />
+        <x-barra-nav class="w-1/4 text-white bg-gray-800" />
 
         <!-- Contenido principal (slot que va a la derecha de la barra) -->
-        <div class="flex-1 p-6">
+        <div class="flex-1 p-6 overflow-y-auto">
             {{ $slot }}
         </div>
     </div>
+
+    <!-- Livewire Scripts -->
+    @livewireScripts
 
 </body>
 

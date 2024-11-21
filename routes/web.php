@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AtencionController;
 use App\Livewire\Admin\RoleMain;
+use App\Livewire\AtencionMain;
+use App\Livewire\HistorialMain;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,4 +22,12 @@ Route::get('/dashboard', function () {
 
 
     Route::get('/Roles', RoleMain::class)->name('Roles');
+    Route::get('/atencion', AtencionMain::class)->name('atencioness');
+    Route::get('/historial', HistorialMain::class)->name('historial');
+
+    Route::get('/atencion', AtencionMain::class)->name('atencioness');
+
+    Route::get('/atencion/{estudiante_id}', [AtencionController::class, 'main'])->name('atencion.main');
+
+
 });
