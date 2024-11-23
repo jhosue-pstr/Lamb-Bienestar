@@ -117,6 +117,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+Route::get('/api/recordatorio', [RecordatorioController::class, 'ultimoRecordatorio']);
+Route::get('/api/ultima-cita', [CitaController::class, 'ultimaCita']);
+
+
+
+
+
 
 
 Route::get('/crear-citas/buscar-estudiante', [CitaController::class, 'buscarEstudiante']);

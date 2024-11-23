@@ -78,4 +78,12 @@ class CitaController extends Controller
 
         return response()->json($eventos);
     }
+
+
+    public function ultimaCita() {
+        $cita = Cita::latest()->first();
+        return response()->json($cita);
+    }
+
+
 }

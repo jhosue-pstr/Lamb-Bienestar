@@ -24,6 +24,13 @@ class RecordatorioController extends Controller
         return response()->json(['success' => true, 'recordatorio' => $recordatorio]);
     }
 
+
+    public function ultimoRecordatorio() {
+        $recordatorio = Recordatorio::latest()->first();
+        return response()->json($recordatorio);
+    }
+
+
     // Método para obtener el último recordatorio
     public function getLatest()
     {
