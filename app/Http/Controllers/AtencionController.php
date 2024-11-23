@@ -14,7 +14,7 @@ class AtencionController extends Controller
      * @param  int  $estudiante_id
      * @return \Illuminate\View\View
      */
-    public function main($estudiante_id)
+    public function main($estudiante_id, Request $request)
     {
         // Obtener el estudiante por ID
         $estudiante = Estudiantes::findOrFail($estudiante_id);
@@ -22,11 +22,12 @@ class AtencionController extends Controller
         // Obtener las atenciones del estudiante
         $atenciones = Atenciones::where('estudiante_id', $estudiante_id)->paginate(5);
 
-        // Retornar la vista atencion-main con los datos del estudiante y sus atenciones
-        return view('livewire.atencion-main', compact('estudiante', 'atenciones'));
+        // Verificar si hay una atención específica que se quiere expandir (detalles)
+        $expandedAtencionId = $request->query('expanded_atencion');
+
+        // Retornar la vista con los datos
+        return view('livewire.atencion-main', compact('estudiante', 'atenciones', 'expandedAtencionId'));
     }
-
-
 
     /**
      * Almacenar una nueva atención.

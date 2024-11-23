@@ -20,6 +20,9 @@ class AtencionMain extends Component
     public $search = '';
     public $estudiantes =[];
     public $observaciones;
+    public $descripcion_motivo;
+    public $otros_datos;
+
 
     public function mount()
     {
@@ -42,45 +45,58 @@ class AtencionMain extends Component
         // Validar los datos
         $this->validate([
             'estudiante_id' => 'required|exists:estudiantes,id',
-            'motivo' => 'required|string|max:255',
+            'motivo' => 'required|string|max:322',
             'tipo' => 'required|string|max:100',
             'resposable' => 'required|string|max:255',
             'fecha_atencion' => 'required|date',
+            'descripcion_motivo' => 'nullable|string|max:500',
+            'otros_datos' => 'nullable|string|max:500',
         ]);
 
-        // Crear la atención
+        $observaciones = $this->observaciones ?? 'N/A';
+        $descripcion_motivo = $this->descripcion_motivo ?? 'N/A';
+        $otros_datos = $this->otros_datos ?? 'N/A';
+
         $atencion = Atenciones::create([
-            'motivo de atencion' => $this->motivo,
+            'motivo_atencion' => $this->motivo,
             'tipo' => $this->tipo,
             'resposable' => $this->resposable,
-            'fecha atencion' => $this->fecha_atencion,
-            'numero derivaciones' => '0', // Default value (or add your logic)
-            'descripcion motivo' => 'N/A', // Default value (or add your logic)
-            'observaciones' => 'N/A', // Default value (or add your logic)
-            'seguimiento de caso' => 'N/A', // Default value (or add your logic)
+            'fecha_atencion' => $this->fecha_atencion,
+            'numero_derivaciones' => '0', // Default value
+            'descripcion_motivo' => $descripcion_motivo,
+            'observaciones' => $observaciones, // Default value
+            'seguimiento_de_caso' => 'N/A', // Default value
             'estado' => 'pendiente',
             'ingreso' => true,
-            'otros datos' => 'N/A',
+            'otros_datos' => $otros_datos,
             'estudiante_id' => $this->estudiante_id,
-            'idCitas' => 1, // Adjust accordingly if needed
+            'idCitas' => 1, // Ajustar según corresponda
         ]);
 
-        // Crear el historial asociado
-        Historials::create([
-            'tipo' => 'Atención Registrada',
-            'descripcion' => 'Atención registrada para el estudiante.',
-            'estudiantes_id' => $this->estudiante_id,
-            'atenciones_id' => $atencion->id,
-            'idCita' => null, // O el valor que determines como "sin cita"
-        ]);
+        // Buscar el historial existente para el estudiante
+        $historial = Historials::where('estudiantes_id', $atencion->estudiante_id)->first();
 
+        if (!$historial) {
+            $historial = new Historials();
+            $historial->estudiantes_id = $atencion->estudiante_id;
+            $historial->tipo = 'Atención';
+            $historial->descripcion = 'Historial de atención para el estudiante.';
+            $historial->numero_atenciones = 1;
+            $historial->save();
+        } else {
+            $historial->numero_atenciones += 1;
+            $historial->save();
+        }
+
+        // Mostrar mensaje de éxito
         session()->flash('message', 'Atención y historial creados correctamente.');
 
-
+        // Limpiar el formulario
         $this->reset([
-            'estudiante_id', 'motivo', 'tipo', 'resposable', 'fecha_atencion', 'observaciones', 'search'
+            'estudiante_id', 'motivo', 'tipo', 'resposable', 'fecha_atencion', 'descripcion_motivo', 'observaciones', 'otros_datos', 'search'
         ]);
     }
+///////////
 
     public function render()
     {

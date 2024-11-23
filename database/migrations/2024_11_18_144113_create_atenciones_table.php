@@ -10,26 +10,26 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('atenciones', function (Blueprint $table) {
-            $table->id();
-            $table->string('motivo de atencion');
-            $table->string('tipo');
-            $table->string('resposable');
-            $table->date('fecha atencion');
-            $table->string('numero derivaciones');
-            $table->string('descripcion motivo');
-            $table->string('observaciones');
-            $table->string('seguimiento de caso');
-            $table->string('estado');
-            $table->boolean('ingreso');
-            $table->string('otros datos');
-            $table->unsignedBigInteger('estudiante_id');
-            $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
+{
+    Schema::create('atenciones', function (Blueprint $table) {
+        $table->id();
+        $table->string('motivo_atencion');
+        $table->string('tipo');
+        $table->string('resposable');
+        $table->date('fecha_atencion')->default(now());
+        $table->string('numero_derivaciones')->default('0');
+        $table->string('descripcion_motivo')->default('N/A');
+        $table->string('observaciones')->default('N/A');
+        $table->string('seguimiento_de_caso')->default('N/A');  // Cambiado a snake_case
+        $table->string('estado')->default('pendiente');
+        $table->boolean('ingreso')->default(true);
+        $table->string('otros_datos')->default('N/A');  // Cambiado a snake_case
+        $table->unsignedBigInteger('estudiante_id');
+        $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
+        $table->timestamps();
+    });
+}
 
-            $table->timestamps();
-        });
-    }
 
     /**
      * Reverse the migrations.

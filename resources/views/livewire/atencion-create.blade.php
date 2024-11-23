@@ -1,9 +1,16 @@
 <div>
     <!-- Mensaje de éxito -->
     @if (session()->has('message'))
-        <div class="alert alert-success">
+        <div id="success-message" class="alert alert-success">
             {{ session('message') }}
         </div>
+
+        <!-- Script para hacer desaparecer el mensaje después de unos segundos -->
+        <script>
+            setTimeout(function() {
+                document.getElementById("success-message").style.display = "none";
+            }, 5000); // El mensaje se ocultará después de 5 segundos
+        </script>
     @endif
 
     <!-- Formulario de atención -->
@@ -43,6 +50,7 @@
                 @enderror
             </div>
 
+
             <!-- Motivo de Atención -->
             <div class="mb-6">
                 <label for="motivo" class="block text-sm font-semibold text-gray-700">Motivo de Atención</label>
@@ -70,6 +78,12 @@
                 <input wire:model="fecha_atencion" type="date" id="fecha_atencion" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 @error('fecha_atencion') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
+            <!-- Descripción del Motivo -->
+            <div class="mb-6">
+                <label for="descripcion_motivo" class="block text-sm font-semibold text-gray-700">Descripción del Motivo</label>
+                <textarea wire:model="descripcion_motivo" id="descripcion_motivo" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Descripción detallada del motivo de atención"></textarea>
+                @error('descripcion_motivo') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+            </div>
 
             <!-- Observaciones -->
             <div class="mb-6">
@@ -77,6 +91,12 @@
                 <textarea wire:model="observaciones" id="observaciones" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Observaciones adicionales"></textarea>
                 @error('observaciones') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
+            <!-- Otros Datos -->
+                <div class="mb-6">
+                    <label for="otros_datos" class="block text-sm font-semibold text-gray-700">Otros Datos</label>
+                    <textarea wire:model="otros_datos" id="otros_datos" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Otros datos relevantes"></textarea>
+                    @error('otros_datos') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
 
             <!-- Botón de Guardar Atención -->
             <div class="mb-6 text-center">

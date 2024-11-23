@@ -13,7 +13,8 @@ class Historials extends Model
         'tipo',
         'descripcion',
         'estudiantes_id',
-        'idCita',
+        'numero_atenciones',
+        'id_cita',
         'solicitudes_id',
         'becas_id',
     ];

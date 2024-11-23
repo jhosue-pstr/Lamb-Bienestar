@@ -27,6 +27,7 @@ class HistorialsFactory extends Factory
             'tipo' => $this->faker->word(),
             'descripcion' => $this->faker->sentence(),
             'estudiantes_id' => Estudiantes::inRandomOrder()->first()->id,
+            'numero_atenciones' => $this->faker->numberBetween(0, 10),
             'idCita' => Cita::inRandomOrder()->first()->id,
             'solicitudes_id' => $this->faker->randomElement([Solicitudes::inRandomOrder()->first()?->id, null]),
             'becas_id' => $this->faker->randomElement([Becas::inRandomOrder()->first()?->id, null]),

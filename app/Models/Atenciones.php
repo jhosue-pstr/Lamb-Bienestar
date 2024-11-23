@@ -10,17 +10,17 @@ class Atenciones extends Model
     use HasFactory;
 
     protected $fillable = [
-        'motivo de atencion',
+        'motivo_atencion',
         'tipo',
         'resposable',
-        'fecha atencion',
-        'numero derivaciones',
-        'descripcion motivo',
+        'fecha_atencion',
+        'numero_derivaciones',
+        'descripcion_motivo',
         'observaciones',
-        'seguimiento de caso',
+        'seguimiento_de_caso',
         'estado',
         'ingreso',
-        'otros datos',
+        'otros_datos',
         'estudiante_id',
     ];
 
