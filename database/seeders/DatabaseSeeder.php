@@ -18,10 +18,13 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(FamiliaresEstudiantesSeeder::class);
-        $this->call(AtencionesSeeder::class);
         $this->call(EstudiantesSeeder::class);
-        $this->call(HistorialsSeeder::class);
+        //$this->call(BecasSeeder::class);
+        //$this->call(SolicitudesSeeder::class);
+        $this->call(AtencionesSeeder::class);
+        $this->call(CitaSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(HistorialsSeeder::class);
 
     }
 }

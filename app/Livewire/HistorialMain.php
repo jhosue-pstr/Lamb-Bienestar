@@ -22,7 +22,7 @@ class HistorialMain extends Component
         ->whereHas('estudiante', function ($query) {
             $query->where('nombre', 'LIKE', '%' . $this->search . '%'); // Filtrar por el nombre del estudiante
         })
-        ->paginate(4); // Paginación para manejar los historiales en múltiples páginas
+        ->paginate(5); // Paginación para manejar los historiales en múltiples páginas
 
     return view('livewire.historial-main', compact('historias'));
 }

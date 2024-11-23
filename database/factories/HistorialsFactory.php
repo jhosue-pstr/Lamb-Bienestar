@@ -3,7 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Atenciones;
+use App\Models\Becas;
+use App\Models\Cita;
 use App\Models\Estudiantes;
+use App\Models\Solicitudes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,12 +24,12 @@ class HistorialsFactory extends Factory
     public function definition()
     {
         return [
-            'tipo' => $this->faker->word, // Aquí pones un tipo genérico, si lo tienes bien
-            'descripcion' => $this->faker->sentence,
-            'estudiantes_id' => Estudiantes::factory(), // Relación con Estudiantes
-            'atenciones_id' => Atenciones::factory(), // Relación con Atenciones
-            'solicitudes_id' => null, // Dejamos vacío, ya que no hay registros de solicitudes aún
-            'becas_id' => null, // Dejamos vacío, ya que no hay registros de becas aún
+            'tipo' => $this->faker->word(),
+            'descripcion' => $this->faker->sentence(),
+            'estudiantes_id' => Estudiantes::inRandomOrder()->first()->id,
+            'idCita' => Cita::inRandomOrder()->first()->id,
+            'solicitudes_id' => $this->faker->randomElement([Solicitudes::inRandomOrder()->first()?->id, null]),
+            'becas_id' => $this->faker->randomElement([Becas::inRandomOrder()->first()?->id, null]),
         ];
     }
 }

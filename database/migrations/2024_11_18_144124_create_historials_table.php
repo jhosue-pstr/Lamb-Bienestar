@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('descripcion');
             $table->unsignedBigInteger('estudiantes_id');
             $table->foreign('estudiantes_id')->references('id')->on('estudiantes')->onDelete('cascade');
-            $table->unsignedBigInteger('atenciones_id');
-            $table->foreign('atenciones_id')->references('id')->on('atenciones')->onDelete('cascade');
+            $table->unsignedBigInteger('idCita')->nullable();
+            $table->foreign('idCita')->references('id')->on('citas')->onDelete('cascade');
 
-            // Cambiar a nullable(), ya que no tienes datos en becas ni solicitudes aún
             $table->unsignedBigInteger('solicitudes_id')->nullable();
             $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');
 

@@ -1,61 +1,89 @@
-<div class="py-2">
-    <div class="mx-6 mb-4">
-        <h2 class="text-3xl font-bold text-gray-800">Atenciones</h2>
-        <div class="mt-2 border-b-2 border-info-600 w-60"></div>
-    </div>
-    <div class="mx-auto sm:px-6 lg:px-8">
-        <div class="p-4 overflow-hidden bg-white shadow-xl sm:rounded-lg dark:bg-gray-800/50 dark:bg-gradient-to-bl">
-            <div class="flex items-center justify-between gap-2 p-2 mb-2 bg-indigo-100 rounded-md">
-                <div class="flex w-full gap-2">
-                    <!-- Input de búsqueda -->
-                    <div class="w-2/4 mb-2">
-                        <input
-                            type="text"
-                            wire:model="search"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-md form-input"
-                            placeholder="Buscar atenciones..."
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                @foreach ($atencioness as $atencion)
-                    <div class="w-full relative bg-blue-50 p-4 rounded-md shadow-lg h-44 motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div class="absolute top-0 left-0 w-full py-1 text-center text-white bg-gray-600 rounded-t-lg text-md">
-                            <i class="fa-solid fa-quote-left"></i> {{$atencion->id}} <i class="fa-solid fa-quote-right"></i>
-                        </div>
-                        <div class="flex h-full gap-4 mt-2 text-sm">
-                            <div class="flex items-center">
-                                <i class="text-3xl fa-solid fa-clock text-cyan-700"></i>
-                            </div>
-                            <div class="flex items-center h-full col-span-2">
-                                <div>
-                                    <div><span class="font-bold text-indigo-600">Motivo de Atención: </span> {{$atencion->motivo_de_atencion}}</div>
-                                    <div><span class="font-bold text-indigo-600">Tipo: </span> {{$atencion->tipo}}</div>
-                                    <div><span class="font-bold text-indigo-600">Responsable: </span> {{$atencion->resposable}}</div>
-                                    <div><span class="font-bold text-indigo-600">Fecha de Atención: </span> {{$atencion->fecha_atencion}}</div>
-                                    <div><span class="font-bold text-indigo-600">Descripción: </span> {{$atencion->descripcion_motivo}}</div>
-                                    <div><span class="font-bold text-indigo-600">Observaciones: </span> {{$atencion->observaciones}}</div>
-                                    <div><span class="font-bold text-indigo-600">Seguimiento de Caso: </span> {{$atencion->seguimiento_de_caso}}</div>
-                                    <div><span class="font-bold text-indigo-600">Otros Datos: </span> {{$atencion->otros_datos}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute bottom-2 right-2">
-                            <x-mini-button rounded primary icon="pencil" wire:click="edit({{$atencion}})" />
-                            <x-mini-button rounded warning icon="exclamation-triangle" wire:click="delete({{$atencion}})" />
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div class="mt-2">
-                @if(!$atencioness->count())
-                    <x-alert title="* No existe ningún registro coincidente" info />
+<div>
+    <!-- Mensaje de éxito -->
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    <!-- Formulario de atención -->
+    <div class="max-w-2xl p-6 mx-auto bg-white rounded-lg shadow-lg">
+        <form wire:submit.prevent="store">
+            <!-- Estudiante (Búsqueda por nombre o apellido) -->
+            <div class="relative mb-6">
+                <label for="estudiante_id" class="block text-sm font-semibold text-gray-700">Estudiante</label>
+
+                <!-- Input de búsqueda de estudiantes -->
+                <input
+                    type="text"
+                    wire:model.live="search"
+                    class="block w-full p-3 mt-2 border border-gray-300 rounded-md form-input"
+                    placeholder="Buscar historial por nombre... cd"
+                />
+
+                <!-- Lista de resultados (solo si hay más de 2 caracteres en la búsqueda y no se ha seleccionado un estudiante) -->
+                @if (strlen($search) > 2 && count($estudiantes) > 0 && !$estudiante_id)
+                    <ul class="absolute z-10 w-full mt-2 overflow-y-auto bg-white rounded-lg shadow-md max-h-48">
+                        @foreach($estudiantes as $estudiante)
+                            <li
+                                wire:click="selectEstudiante({{ $estudiante->id }})"
+                                class="p-2 cursor-pointer hover:bg-gray-100"
+                            >
+                                {{ $estudiante->nombre }} {{ $estudiante->apellido }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @elseif (strlen($search) > 2 && !$estudiante_id)
+                    <p class="mt-2 text-sm text-gray-500">No se encontraron resultados.</p>
                 @endif
+
+                <!-- Error en caso de no seleccionar estudiante -->
+                @error('estudiante_id')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
-        </div>
-        <div class="mt-2">
-            {{$atencioness->links()}}
-        </div>
+
+            <!-- Motivo de Atención -->
+            <div class="mb-6">
+                <label for="motivo" class="block text-sm font-semibold text-gray-700">Motivo de Atención</label>
+                <input wire:model="motivo" type="text" id="motivo" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Motivo de atención">
+                @error('motivo') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Tipo -->
+            <div class="mb-6">
+                <label for="tipo" class="block text-sm font-semibold text-gray-700">Tipo</label>
+                <input wire:model="tipo" type="text" id="tipo" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tipo de atención">
+                @error('tipo') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Responsable -->
+            <div class="mb-6">
+                <label for="resposable" class="block text-sm font-semibold text-gray-700">Responsable</label>
+                <input wire:model="resposable" type="text" id="resposable" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Responsable de la atención">
+                @error('resposable') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Fecha de Atención -->
+            <div class="mb-6">
+                <label for="fecha_atencion" class="block text-sm font-semibold text-gray-700">Fecha de Atención</label>
+                <input wire:model="fecha_atencion" type="date" id="fecha_atencion" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @error('fecha_atencion') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Observaciones -->
+            <div class="mb-6">
+                <label for="observaciones" class="block text-sm font-semibold text-gray-700">Observaciones</label>
+                <textarea wire:model="observaciones" id="observaciones" class="block w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Observaciones adicionales"></textarea>
+                @error('observaciones') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Botón de Guardar Atención -->
+            <div class="mb-6 text-center">
+                <button type="submit" class="w-full p-3 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Guardar Atención
+                </button>
+            </div>
+        </form>
     </div>
 </div>

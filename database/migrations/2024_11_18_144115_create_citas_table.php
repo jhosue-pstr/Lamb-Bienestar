@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('atenciones', function (Blueprint $table) {
+        Schema::create('citas', function (Blueprint $table) {
             $table->id();
-            $table->string('motivo de atencion');
-            $table->string('tipo');
-            $table->string('resposable');
-            $table->date('fecha atencion');
-            $table->string('numero derivaciones');
-            $table->string('descripcion motivo');
-            $table->string('observaciones');
-            $table->string('seguimiento de caso');
-            $table->string('otros datos');
+            $table->string('area');
+            $table->string('estado');
+            $table->string('motivo');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->unsignedBigInteger('atenciones_id');
+            $table->foreign('atenciones_id')->references('id')->on('atenciones')->onDelete('cascade');
             $table->unsignedBigInteger('estudiante_id');
             $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('atenciones');
+        Schema::dropIfExists('citas');
     }
 };

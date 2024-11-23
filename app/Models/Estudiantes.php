@@ -24,4 +24,9 @@ class Estudiantes extends Model
     {
         return $this->hasMany(Atenciones::class);
     }
+
+    public function historiales()
+    {
+        return $this->hasMany(Historials::class, 'estudiantes_id');
+    }
 }
