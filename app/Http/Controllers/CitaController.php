@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
 class CitaController extends Controller
 {
-    public function detalle($id)
-    {
-        $cita = Cita::findOrFail($id);  // Buscar la cita por su ID
+    public function show($id)
+{
+    $cita = Cita::findOrFail($id);  // Encuentra la cita por ID
+    $estudiante = Estudiante::find($cita->estudiante_id);  // Encuentra al estudiante relacionado
 
-        // Devolver la vista con los datos de la cita
-        return view('cita.detalle', compact('cita'));
-    }
+    return view('cita-detalle', compact('cita', 'estudiante'));
+}
 }

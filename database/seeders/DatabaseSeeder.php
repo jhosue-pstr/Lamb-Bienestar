@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cita;
+use App\Models\CitaCalificacion;
 use App\Models\Estudiante;
 use App\Models\Historial;
 use App\Models\User;
@@ -25,5 +26,6 @@ class DatabaseSeeder extends Seeder
 
         Estudiante::factory(10)->create();
         Cita::factory(10)->create();
+        CitaCalificacion::factory()->count(10)->create();
     }
 }

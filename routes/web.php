@@ -3,6 +3,7 @@
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\EstudianteController;
 use App\Livewire\Admin\RoleMain;
+use App\Livewire\CitaDetalle;
 use App\Livewire\EstudianteMain;
 use App\Livewire\HistorialMain;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,5 @@ Route::get('/dashboard', function () {
 
     Route::get('/Roles', RoleMain::class)->name('Roles');
     Route::get('/historial', EstudianteMain::class)->name('Historial');
-    Route::get('/cita/{id}/detalle', [CitaController::class, 'detalle'])->name('cita.detalle');
+    Route::get('/cita/{id}', CitaDetalle::class)->name('cita.detalle');
 });
