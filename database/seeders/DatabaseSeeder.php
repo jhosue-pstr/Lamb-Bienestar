@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Appointment;
+use App\Models\Cita;
+use App\Models\Estudiante;
+use App\Models\Historial;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,7 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
 
         $this->call(UserSeeder::class);
-        Appointment::factory()->count(50)->create();
 
+
+        Estudiante::factory(10)->create();
+        Cita::factory(10)->create();
     }
 }

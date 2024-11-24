@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\AppointmentHistoryController;
+use App\Http\Controllers\CitaController;
+use App\Http\Controllers\EstudianteController;
 use App\Livewire\Admin\RoleMain;
+use App\Livewire\EstudianteMain;
+use App\Livewire\HistorialMain;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +23,6 @@ Route::get('/dashboard', function () {
 
 
     Route::get('/Roles', RoleMain::class)->name('Roles');
-    Route::get('/appointment-history', [AppointmentHistoryController::class, 'index'])->name('appointments.history');
-    Route::get('/appointments/{appointment}', [AppointmentHistoryController::class, 'show'])->name('appointments.show');
+    Route::get('/historial', EstudianteMain::class)->name('Historial');
+    Route::get('/cita/{id}/detalle', [CitaController::class, 'detalle'])->name('cita.detalle');
 });

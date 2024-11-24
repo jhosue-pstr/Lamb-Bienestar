@@ -22,7 +22,7 @@
                     </svg>
                     Inicio
                 </a>
-                <a href="{{ route('appointments.history') }}" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700 {{ Request::routeIs('appointments.history') ? 'bg-gray-700' : '' }}">
+                <a href="{{ route('Historial') }}" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -30,6 +30,7 @@
                     </svg>
                     <span class="ml-2">Historial</span>
                 </a>
+
                 <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
