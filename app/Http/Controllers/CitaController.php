@@ -65,22 +65,30 @@ class CitaController extends Controller
 
 
 
-    // Obtener la última cita
     public function getUltimaCita()
-    {
-        try {
-            // Obtener la última cita ordenada por la columna "created_at"
-            $ultimaCita = Cita::orderBy('created_at', 'desc')->first();
+{
+    try {
+        $ultimaCita = Cita::orderBy('created_at', 'desc')->first();
 
-            if ($ultimaCita) {
-                return response()->json($ultimaCita, 200); // Devolver la cita encontrada
-            } else {
-                return response()->json(['message' => 'No hay citas registradas'], 404); // Manejo de error
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al obtener la última cita'], 500);
+        if ($ultimaCita) {
+            return response()->json([
+                'area' => $ultimaCita->area ?? 'Sin área',
+                'estado' => $ultimaCita->estado ?? 'Sin estado',
+                'fecha' => $ultimaCita->fecha ?? 'Sin fecha',
+                'hora' => $ultimaCita->hora ?? 'Sin hora',
+            ], 200);
+        } else {
+            return response()->json(['message' => 'No hay citas registradas'], 404);
         }
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error interno: ' . $e->getMessage()], 500);
     }
+}
+
+
+
+
+
 
     // Obtener todas las citas para mostrarlas en el calendario
     public function obtenerCitas()
@@ -103,5 +111,5 @@ class CitaController extends Controller
         });
 
         return response()->json($eventos);
-    }
+}
 }

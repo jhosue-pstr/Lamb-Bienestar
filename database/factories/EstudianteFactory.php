@@ -25,6 +25,8 @@ class EstudianteFactory extends Factory
     protected $model = Estudiante::class;
 
     public function definition()
+
+
     {
         return [
             'codigo' => $this->faker->unique()->randomNumber(8), // Código único aleatorio

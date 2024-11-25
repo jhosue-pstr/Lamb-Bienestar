@@ -26,6 +26,7 @@ class HistorialFactory extends Factory
             'idAtencion' => Atenciones::inRandomOrder()->first()->id, // Asigna un Atencion aleatoria
             'idCita' => Cita::inRandomOrder()->first()->id, // Asigna una Cita aleatoria
             'idEstudiante' => Estudiante::inRandomOrder()->first()->id, // Asigna un Estudiante aleatorio
+
         ];
     }
 }

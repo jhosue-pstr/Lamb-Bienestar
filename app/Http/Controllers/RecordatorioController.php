@@ -40,6 +40,10 @@ class RecordatorioController extends Controller
         if (!$recordatorio) {
             return response()->json(['success' => false, 'message' => 'No hay recordatorios disponibles.']);
         }
-        return response()->json($recordatorio);}
+        return response()->json([
+            'nombre' => $recordatorio->nombre ?? 'Sin nombre',
+            'fecha' => $recordatorio->fecha ?? 'Sin fecha',
+            'hora' => $recordatorio->hora ?? 'Sin hora',]);}
+
 
 }

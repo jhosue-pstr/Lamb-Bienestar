@@ -20,13 +20,12 @@ class Historial extends Model
 
     public function estudiante()
     {
-        // Suponiendo que la relación es de tipo 'belongsTo' (Historial pertenece a un Estudiante)
-        return $this->belongsTo(Estudiante::class, 'estudiantes_id');
+        return $this->belongsTo(Estudiante::class, 'idEstudiante');
     }
 
     public function atencion()
     {
-        return $this->belongsTo(Atenciones::class, 'atenciones_id');
+        return $this->belongsTo(Atenciones::class, 'idAtencion');
     }
 
     public function solicitud()

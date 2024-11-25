@@ -16,6 +16,7 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'Ver dashboard', 'guard_name' => 'web']);
         Permission::firstOrCreate(['name' => 'Editar usuario', 'guard_name' => 'web']);
         Permission::firstOrCreate(['name' => 'Eliminar usuario', 'guard_name' => 'web']);
+
     }
 }
 

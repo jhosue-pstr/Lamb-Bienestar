@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('historial', function (Blueprint $table) {
             $table->id();
             $table->foreignId('idAtencion')->constrained('atenciones')->onDelete('cascade');
-            $table->foreignId('idCita')->constrained('citas')->onDelete('cascade');
+            $table->foreignId('idCita')->nullable()->constrained('citas')->onDelete('cascade');
             $table->foreignId('idEstudiante')->constrained('estudiantes')->onDelete('cascade');
             $table->timestamps(); // created_at, updated_at
+
+            //$table->foreignId('idEstudiante')->references('id')->on('estudiantes')->onDelete('cascade');
+
+
         });
     }
 

@@ -2,99 +2,132 @@
 
 namespace App\Livewire;
 
-use App\Http\Controllers\AtencionController;
-use App\Livewire\Forms\AtencionForm;
 use App\Models\Atenciones;
+use App\Models\Cita;
 use App\Models\Estudiante;
 use App\Models\Historial;
-use App\Models\Historials;
-use Illuminate\Routing\Route;
 use Livewire\Component;
 
 class AtencionMain extends Component
 {
-    public $idEstudiante;
+    public $IdEstudiante;
     public $motivo;
     public $tipo;
-    public $resposable;
+    public $responsable;
     public $fecha_atencion;
     public $search = '';
-    public $estudiantes =[];
+    public $estudiantes = [];
     public $observaciones;
     public $descripcion_motivo;
     public $otros_datos;
 
-
+    // Inicializa los datos al montar el componente
     public function mount()
     {
-        $this->estudiantes = Estudiante::all();
+        $this->estudiantes = Estudiante::all(); // Carga todos los estudiantes inicialmente
     }
 
+    // Actualiza la lista de estudiantes al escribir en el campo de búsqueda
+    public function updatedSearch()
+    {
+        if (strlen($this->search) > 2 && !$this->IdEstudiante) {
+            $this->estudiantes = Estudiante::where('nombre', 'like', '%' . $this->search . '%')
+                ->orWhere('apellidoPaterno', 'like', '%' . $this->search . '%')
+                ->orWhere('apellidoMaterno', 'like', '%' . $this->search . '%')
+                ->limit(10)  // Limita los resultados para mejorar la eficiencia
+                ->get();
+        } else {
+            $this->estudiantes = collect(); // Limpia los resultados cuando no se busca o ya se seleccionó un estudiante
+        }
+    }
 
-
-    // Selecciona un estudiante de la lista de resultados
+    // Selecciona un estudiante de la lista
     public function selectEstudiante($estudianteId)
     {
-        $this->idEstudiante = $estudianteId;
-        $estudiante = Estudiante::find($estudianteId);
-        $this->search = $estudiante->nombre . ' ' . $estudiante->apellido;
-        $this->estudiantes = []; // Limpia los resultados
+        $estudiante = Estudiante::find($estudianteId); // Encuentra al estudiante seleccionado
+        $this->IdEstudiante = $estudiante->id;
+        $this->search = $estudiante->nombre . ' ' . $estudiante->apellidoPaterno . ' ' . $estudiante->apellidoMaterno; // Actualiza el campo de búsqueda
+        $this->estudiantes = []; // Limpia la lista de búsqueda
     }
 
     public function store()
     {
-        // Validar que el idEstudiante existe en la tabla estudiantes
-        $estudiante = Estudiante::find($this->idEstudiante);
-        if (!$estudiante) {
-            session()->flash('error', 'El estudiante no existe.');
-            return;
-        }
-
-        // Proceder con la inserción en la tabla atenciones
-        Atenciones::create([
-            'motivoAtencion' => $this->motivo,
-            'tipo' => $this->tipo,
-            'responsable' => $this->resposable,
-            'fechaAtencion' => $this->fecha_atencion,
-            'numero_derivaciones' => 0, // Default value
-            'descripcionMotivo' => $this->descripcion_motivo ?? 'N/A',
-            'lesionObservaciones' => $this->observaciones ?? 'N/A',
-            'seguimientoCaso' => 'N/A', // Default value
-            'estado' => 'pendiente',
-            'ingreso' => true,
-            'otrosDatos' => $this->otros_datos ?? 'N/A',
-            'idEstudiante' => $this->idEstudiante, // Asegúrate de que sea el idEstudiante correcto
-            'idCitas' => 1, // Ajustar según corresponda
+            $this->validate([
+            'IdEstudiante' => 'required|exists:estudiantes,id',
+            'motivo' => 'required|string|max:322',
+            'tipo' => 'required|string|max:100',
+            'responsable' => 'required|string|max:255',
+            'fecha_atencion' => 'required|date|after_or_equal:today',
+            'descripcion_motivo' => 'nullable|string|max:500',
+            'otros_datos' => 'nullable|string|max:500',
         ]);
 
-        // Actualizar o crear historial
-        $historial = Historial::where('idEstudiante', $this->idEstudiante)->first();
-        if (!$historial) {
-            $historial = new Historial();
-            $historial->idEstudiante = $this->idEstudiante;
-            $historial->tipo = 'Atención';
-            $historial->descripcion = 'Historial de atención para el estudiante.';
-            $historial->numero_atenciones = 1;
-            $historial->save();
-        } else {
-            $historial->numero_atenciones += 1;
-            $historial->save();
-        }
+        // Asignar valores predeterminados a campos opcionales
+        $observaciones = $this->observaciones ?? 'N/A';
+        $descripcion_motivo = $this->descripcion_motivo ?? 'N/A';
+        $otros_datos = $this->otros_datos ?? 'N/A';
 
-        // Mostrar mensaje de éxito
+        $atencion = Atenciones::create([
+            'motivoAtencion' => $this->motivo,
+            'tipo' => $this->tipo,
+            'responsable' => $this->responsable,
+            'fechaAtencion' => $this->fecha_atencion,  // Usamos 'fechaAtencion' para que coincida con la migración
+            'descripcionMotivo' => $descripcion_motivo,
+            'lesionObservaciones' => $observaciones,  // Asegúrate de que los nombres de las columnas coincidan
+            'seguimientoCaso' => 'N/A',
+            'otrosDatos' => $otros_datos,
+            'idEstudiante' => $this->IdEstudiante,
+        ]);
+
+        // Actualizar el historial del estudiante
+        $this->updateHistorial($atencion);
+
+        // Mensaje de éxito
         session()->flash('message', 'Atención y historial creados correctamente.');
 
-        // Limpiar el formulario
+        // Limpiar los campos del formulario
         $this->reset([
-            'idEstudiante', 'motivo', 'tipo', 'resposable', 'fecha_atencion', 'descripcion_motivo', 'observaciones', 'otros_datos', 'search'
+            'IdEstudiante', 'motivo', 'tipo', 'responsable', 'fecha_atencion', 'descripcion_motivo', 'observaciones', 'otros_datos', 'search'
         ]);
     }
 
-///////////
+    private function getCitaId()
+{
+      $cita = Cita::firstOrCreate([
+        'idEstudiante' => $this->IdEstudiante,
+        'fecha' => now(),  // Aquí podrías agregar la lógica que necesites para obtener o crear una cita
+    ]);
+
+    return $cita->id ?? null;  // Devuelve el ID de la cita o null si no existe
+}
+
+
+    private function updateHistorial($atencion)
+{
+    // Obtener o crear un historial para el estudiante
+    $historial = Historial::where('idEstudiante', $atencion->idEstudiante)->first();
+
+    // Si no existe un historial, lo creamos
+    if (!$historial) {
+        // Asignamos null a idCita si no se requiere una cita
+        $idCita = null;
+
+        $historial = new Historial();
+        $historial->idEstudiante = $atencion->idEstudiante;
+        $historial->idAtencion = $atencion->id;  // Vinculamos la atención recién creada
+        $historial->idCita = $idCita;  // Asignamos null si no hay una cita
+    } else {
+        // Si ya existe un historial, solo agregamos la nueva atención
+        $historial->idAtencion = $atencion->id;
+    }
+
+    // Guardamos el historial actualizado
+    $historial->save();
+}
+
+
 
     public function render()
     {
-        return view('atencion-create');
-    }
+        return view('atencion-create');}
 }
-

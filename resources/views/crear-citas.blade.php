@@ -1,6 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
 <x-app-layout>
     <div class="flex-1">
         <!-- Contenedor Principal -->
@@ -52,10 +51,10 @@
                             <label for="area" class="block mb-2 font-medium">Área</label>
                             <select id="area" class="w-full px-3 py-2 border-gray-300 rounded" required>
                                 <option value="" disabled selected>Seleccione un área</option>
-                                <option value="Psicologia">Psicologia</option>
-                                <option value="Centro Medico">Centro Medico</option>
-                                <option value="Capellania">Capellania</option>
-                                <option value="Atencion Medica">Atención Medica</option>
+                                <option value="Psicologia">Psicología</option>
+                                <option value="Centro Medico">Centro Médico</option>
+                                <option value="Capellania">Capellanía</option>
+                                <option value="Atencion Medica">Atención Médica</option>
                                 <option value="Sostenibilidad Ambiental">Sostenibilidad Ambiental</option>
                             </select>
                         </div>
@@ -73,13 +72,24 @@
                                 class="w-full px-6 py-3 text-white bg-green-600 rounded hover:bg-green-700">
                                 Agendar
                             </button>
-
                         </div>
-
-
-
-
                     </form>
+                </div>
+            </div>
+
+            <div id="mascota-container" class="absolute right-0 p-4" style="top: 748px; left: 1080px;">
+                <!-- Imagen de la mascota -->
+                <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-30 animate-move-left">
+
+                <!-- Nube de pensamiento -->
+                <div id="mensaje-mascota"
+                    class="hidden max-w-[200px] p-2 transform rounded-lg shadow-lg bg-green-400 -translate-x-2/3 -top-20 -left-3">
+                    <!-- Texto del mensaje -->
+                    <p id="mensaje-texto" class="text-base font-bold text-black"></p>
+                    <!-- Triángulo apuntando a la mascota -->
+                    <div
+                        class="absolute w-0 h-0 border-transparent border-t-5 border-l-5 border-r-5 border-t-green-400 -bottom-2 left-20">
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,8 +133,6 @@
                 },
                 events: function(fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-
-
                         url: '/crear-citas/obtener-citas',
                         method: 'GET',
                         success: function(data) {
@@ -149,19 +157,14 @@
             calendar.render();
 
             // Buscar estudiante
-            // Buscar estudiante
             $('#buscar').click(function() {
                 const codigo = $('#codigo').val();
-
-                // Depuración
-                console.log('Código enviado:', codigo);
 
                 if (!codigo) {
                     alert('Por favor, ingrese un código.');
                     return;
                 }
 
-                // Solicitud AJAX
                 $.ajax({
                     url: '/crear-citas/buscar-estudiante',
                     method: 'GET',
@@ -169,18 +172,15 @@
                         codigo
                     },
                     success: function(data) {
-                        console.log('Respuesta del servidor:', data);
                         $('#nombres').val(data.nombre || '');
                         $('#apellidos').val(data.apellidoPaterno || '');
                         $('#facultad').val(data.facultad || '');
                     },
                     error: function(xhr) {
-                        console.error('Error al buscar estudiante:', xhr.responseText);
                         alert('Estudiante no encontrado.');
                     }
                 });
             });
-
 
             $('#agendar').click(function() {
                 const data = {
@@ -197,8 +197,8 @@
                 }
 
                 $.ajax({
-                    url: '/crear-citas/guardar-cita', // URL correcta
-                    method: 'POST', // Método POST
+                    url: '/crear-citas/guardar-cita',
+                    method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -210,23 +210,39 @@
                     error: function(xhr) {
                         const error = xhr.responseJSON?.error || 'Error al agendar la cita.';
                         alert(error);
-                        console.error('Error al guardar la cita:', xhr.responseText);
-                    },
+                    }
                 });
             });
         });
+
+        let mensajes = [];
+        let colores = [];
+        let indiceMensaje = 0;
+
+        async function obtenerUltimoRecordatorio() {
+            try {
+                const response = await fetch('/api/ultimo-recordatorio');
+                if (response.ok) {
+                    const recordatorio = await response.json();
+                    mensajes.push(`Recordatorio: ${recordatorio.mensaje}`);
+                    colores.push(recordatorio.color);
+                    mostrarMensaje();
+                }
+            } catch (error) {
+                console.error('Error al obtener el último recordatorio:', error);
+            }
+        }
+
+        function mostrarMensaje() {
+            const mensaje = mensajes[indiceMensaje];
+            const color = colores[indiceMensaje];
+
+            $('#mensaje-texto').text(mensaje);
+            $('#mensaje-mascota').css('background-color', color);
+            $('#mensaje-mascota').removeClass('hidden');
+            $('#mascota').addClass('animate-move-left');
+
+            indiceMensaje = (indiceMensaje + 1) % mensajes.length;
+        }
     </script>
-
-
-    <!-- Estilos -->
-    <style>
-        .fc-day-selected {
-            background-color: red !important;
-            color: white !important;
-        }
-
-        #calendar {
-            position: relative;
-        }
-    </style>
 </x-app-layout>

@@ -4,13 +4,19 @@ use App\Livewire\Admin\RoleMain;
 use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\AtencionController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EventosAnunciosController;
 use App\Http\Controllers\InformacionController;
 use App\Http\Controllers\RecordatorioController;
 use App\Livewire\AtencionMain;
+use App\Livewire\Beca\BecaAlimento;
+use App\Livewire\Beca\BecaSeleccion;
 use App\Livewire\CitaDetalle;
 use App\Livewire\EstudianteMain;
+use App\Livewire\HistorialMain;
+use App\Livewire\Solicitud\GestionSolicitud;
+use App\Livewire\Solicitud\SolicitudMain;
 use Illuminate\Support\Facades\Route;
 
 
@@ -129,9 +135,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/api/recordatorio', [RecordatorioController::class, 'ultimoRecordatorio']);
-Route::get('/api/ultima-cita', [CitaController::class, 'ultimaCita']);
-
+Route::get('/api/ultimo-recordatorio', [RecordatorioController::class, 'getLatest']);
+Route::get('/api/ultima-cita', [CitaController::class, 'getUltimaCita']);
 
 
 
@@ -156,12 +161,15 @@ Route::prefix('crear-citas')->group(function () {
 
 
 
+Route::get('/Roles', RoleMain::class)->name('Roles');
+    Route::get('/atencion', AtencionMain::class)->name('atencioness');
+    Route::get('/historial2', HistorialMain::class)->name('historial');
 
-Route::get('/atencion', AtencionMain::class)->name('atencioness');
+    //Route::get('/atencion', AtencionMain::class)->name('atencioness');
 
-Route::get('/atencion', AtencionMain::class)->name('atencioness');
+    Route::get('/atencion/{estudiante_id}', [AtencionController::class, 'main'])->name('atencion.main');
 
-Route::get('/atencion/{estudiante_id}', [AtencionController::class, 'main'])->name('atencion.main');
+
 
 
 
@@ -169,5 +177,16 @@ Route::get('/atencion/{estudiante_id}', [AtencionController::class, 'main'])->na
 
 Route::get('/historial', EstudianteMain::class)->name('Historial');
 Route::get('/cita/{id}', CitaDetalle::class)->name('cita.detalle');
+
+
+
+
+
+Route::get('/Solicitudes', SolicitudMain::class)->name('Solicitudes');
+Route::get('/estudiantes', [EstudianteController::class, 'index']);
+Route::get('/becas', BecaSeleccion::class)->name('beca.seleccion');
+Route::get('/becasali', BecaAlimento::class)->name('beca.alimento');
+Route::get('/gestion', GestionSolicitud::class)->name('gestion.solicitud');
+
 
 });

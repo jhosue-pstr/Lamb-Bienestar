@@ -10,22 +10,19 @@ class Atenciones extends Model
     use HasFactory;
 
     protected $fillable = [
-        'motivo_atencion',
+        'motivoAtencion',
         'tipo',
-        'resposable',
-        'fecha_atencion',
-        'numero_derivaciones',
-        'descripcion_motivo',
-        'observaciones',
-        'seguimiento_de_caso',
-        'estado',
-        'ingreso',
-        'otros_datos',
-        'estudiante_id',
+        'responsable',
+        'fechaAtencion',
+        'descripcionMotivo',
+        'lesionObservaciones',
+        'seguimientoCaso',
+        'otrosDatos',
+        'idEstudiante',
     ];
+
 
     public function estudiante()
     {
-        return $this->belongsTo(Estudiante::class, 'idEstudiante');
-    }
+        return $this->belongsTo(Estudiante::class, 'idAtencion');}
 }
