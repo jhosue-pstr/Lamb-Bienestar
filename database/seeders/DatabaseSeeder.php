@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Atenciones;
 use App\Models\FichaSocioEconomica;
+use App\Models\Role;
 use App\Models\TipoRequisito;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,6 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
+        //Role::firstOrCreate(['name' => 'Administrador']);
+
         $this->call(GastoSeeder::class);
         $this->call(TipoBecaSeeder::class); // Primero, seedear las becas
         $this->call(AlimentoBecaSeeder::class); // Luego, los alimentos relacionados con becas

@@ -9,33 +9,22 @@ class Atenciones extends Model
 {
     use HasFactory;
 
+    protected $table = 'atenciones';
+
     protected $fillable = [
-        'motivo_atencion',
+        'motivoAtencion',
         'tipo',
-        'resposable',
-        'fecha_atencion',
-        'numero_derivaciones',
-        'descripcion_motivo',
-        'observaciones',
-        'seguimiento_de_caso',
-        'estado',
-        'ingreso',
-        'otros_datos',
-        'estudiante_id',
+        'responsable',
+        'fechaAtencion',
+        'descripcionMotivo',
+        'lesionObservaciones',
+        'seguimientoCaso',
+        'otrosDatos',
+        'idEstudiante',
     ];
 
     public function estudiante()
     {
-        return $this->belongsTo(Estudiante::class, 'estudiante_id');
-    }
-
-    public function cita()
-    {
-        return $this->belongsTo(Cita::class, 'idCitas');
-    }
-
-    public function historiales()
-    {
-        return $this->hasMany(Historial::class, 'atenciones_id');
+        return $this->belongsTo(Estudiante::class, 'idAtencion');
     }
 }

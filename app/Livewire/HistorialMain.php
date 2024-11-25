@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Historials;
+use App\Models\Historial;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\WireUiActions;
@@ -18,7 +18,7 @@ class HistorialMain extends Component
     public function render()
 {
     // Filtrar por el nombre del estudiante
-    $historias = Historials::with('estudiante') // Cargar la relación 'estudiante'
+    $historias = Historial::with('estudiante') // Cargar la relación 'estudiante'
         ->whereHas('estudiante', function ($query) {
             $query->where('nombre', 'LIKE', '%' . $this->search . '%'); // Filtrar por el nombre del estudiante
         })

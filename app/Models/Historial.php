@@ -18,25 +18,19 @@ class Historial extends Model
         'idEstudiante',
     ];
 
-    public function estudiante()
-    {
-        // Suponiendo que la relación es de tipo 'belongsTo' (Historial pertenece a un Estudiante)
-        return $this->belongsTo(Estudiante::class, 'estudiantes_id');
-    }
-
     public function atencion()
     {
-        return $this->belongsTo(Atenciones::class, 'atenciones_id');
+        return $this->belongsTo(Atenciones::class, 'idAtencion');
     }
 
-    public function solicitud()
+    public function cita()
     {
-        return $this->belongsTo(Solicitud::class, 'solicitudes_id');
+        return $this->belongsTo(Cita::class, 'idCita');
     }
 
-    public function beca()
+    public function estudiante()
     {
-        return $this->belongsTo(Beca::class, 'becas_id');
+        return $this->belongsTo(Estudiante::class, 'idEstudiante');
     }
 
 }

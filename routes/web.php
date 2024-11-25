@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
     Route::get('/atencion', AtencionMain::class)->name('atencioness');
     Route::get('/historial', HistorialMain::class)->name('historial');
 
-    Route::get('/atencion', AtencionMain::class)->name('atencioness');
+    //Route::get('/atencion', AtencionMain::class)->name('atencioness');
 
     Route::get('/atencion/{estudiante_id}', [AtencionController::class, 'main'])->name('atencion.main');
 

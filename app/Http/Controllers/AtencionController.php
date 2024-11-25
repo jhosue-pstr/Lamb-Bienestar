@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atenciones;
-use App\Models\Estudiantes;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
 class AtencionController extends Controller
@@ -11,16 +11,16 @@ class AtencionController extends Controller
     /**
      * Mostrar las atenciones del estudiante
      *
-     * @param  int  $estudiante_id
+     * @param  int  $IdEstudiante
      * @return \Illuminate\View\View
      */
-    public function main($estudiante_id, Request $request)
+    public function main($IdEstudiante, Request $request)
     {
         // Obtener el estudiante por ID
-        $estudiante = Estudiantes::findOrFail($estudiante_id);
+        $estudiante = Estudiante::findOrFail($IdEstudiante);
 
         // Obtener las atenciones del estudiante
-        $atenciones = Atenciones::where('estudiante_id', $estudiante_id)->paginate(5);
+        $atenciones = Atenciones::where('IdEstudiante', $IdEstudiante)->paginate(5);
 
         // Verificar si hay una atención específica que se quiere expandir (detalles)
         $expandedAtencionId = $request->query('expanded_atencion');
@@ -50,14 +50,14 @@ class AtencionController extends Controller
             'estado' => 'required|string',
             'ingreso' => 'required|boolean',
             'otros_datos' => 'nullable|string',
-            'estudiante_id' => 'required|exists:estudiantes,id',
+            'IdEstudiante' => 'required|exists:estudiantes,id',
         ]);
 
         // Crear la nueva atención
         Atenciones::create($request->all());
 
         // Redirigir a la lista de atenciones del estudiante
-        return redirect()->route('atencion.main', ['estudiante_id' => $request->estudiante_id])
+        return redirect()->route('atencion.main', ['IdEstudiante' => $request->IdEstudiante])
                          ->with('success', 'Atención creada correctamente');
     }
 }
