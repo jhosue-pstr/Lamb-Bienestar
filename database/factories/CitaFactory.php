@@ -21,7 +21,7 @@ class CitaFactory extends Factory
     public function definition(): array
     {
         return [
-            'area' => $this->faker->randomElement(['Atencion medico primaria', 'Recreacion y Deporte', 'Orientacion Psicologica', 'Sostenibilidad ambiental']),
+            'area' => $this->faker->randomElement(['Psicologia','Centro Medico','Capellania','Atencion Medica','Sostenibilidad ambiental']),
             'estado' => $this->faker->randomElement(['asistio', 'no asistio', 'pendiente']),
             'motivo' => $this->faker->sentence(),
             'fecha' => $this->faker->date(),

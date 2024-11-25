@@ -51,10 +51,10 @@
                             <label for="area" class="block mb-2 font-medium">Área</label>
                             <select id="area" class="w-full px-3 py-2 border-gray-300 rounded" required>
                                 <option value="" disabled selected>Seleccione un área</option>
-                                <option value="Psicologia">Psicología</option>
-                                <option value="Centro Medico">Centro Médico</option>
-                                <option value="Capellania">Capellanía</option>
-                                <option value="Atencion Medica">Atención Médica</option>
+                                <option value="Psicologia">Psicologia</option>
+                                <option value="Centro Medico">Centro Medico</option>
+                                <option value="Capellania">Capellania</option>
+                                <option value="Atencion Medica">Atención Medica</option>
                                 <option value="Sostenibilidad Ambiental">Sostenibilidad Ambiental</option>
                             </select>
                         </div>
@@ -77,6 +77,7 @@
                 </div>
             </div>
 
+            <!-- Mascota -->
             <div id="mascota-container" class="absolute right-0 p-4" style="top: 748px; left: 1080px;">
                 <!-- Imagen de la mascota -->
                 <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-30 animate-move-left">
@@ -84,9 +85,7 @@
                 <!-- Nube de pensamiento -->
                 <div id="mensaje-mascota"
                     class="hidden max-w-[200px] p-2 transform rounded-lg shadow-lg bg-green-400 -translate-x-2/3 -top-20 -left-3">
-                    <!-- Texto del mensaje -->
                     <p id="mensaje-texto" class="text-base font-bold text-black"></p>
-                    <!-- Triángulo apuntando a la mascota -->
                     <div
                         class="absolute w-0 h-0 border-transparent border-t-5 border-l-5 border-r-5 border-t-green-400 -bottom-2 left-20">
                     </div>
@@ -108,7 +107,7 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                time_24hr: true
+                time_24hr: true,
             });
 
             // Configuración del calendario
@@ -117,18 +116,15 @@
                 initialView: 'dayGridMonth',
                 selectable: true,
                 dateClick: function(info) {
-                    // Remover estilos de fechas previamente seleccionadas
                     document.querySelectorAll('.fc-day-selected').forEach(day => {
                         day.classList.remove('fc-day-selected');
                     });
 
-                    // Seleccionar la fecha actual y añadir la clase para resaltar
                     const selectedCell = document.querySelector(`[data-date="${info.dateStr}"]`);
                     if (selectedCell) {
                         selectedCell.classList.add('fc-day-selected');
                     }
 
-                    // Actualizar el valor del input oculto
                     $('#fecha').val(info.dateStr);
                 },
                 events: function(fetchInfo, successCallback, failureCallback) {
@@ -159,12 +155,10 @@
             // Buscar estudiante
             $('#buscar').click(function() {
                 const codigo = $('#codigo').val();
-
                 if (!codigo) {
                     alert('Por favor, ingrese un código.');
                     return;
                 }
-
                 $.ajax({
                     url: '/crear-citas/buscar-estudiante',
                     method: 'GET',
@@ -176,12 +170,13 @@
                         $('#apellidos').val(data.apellidoPaterno || '');
                         $('#facultad').val(data.facultad || '');
                     },
-                    error: function(xhr) {
+                    error: function() {
                         alert('Estudiante no encontrado.');
                     }
                 });
             });
 
+            // Agendar cita
             $('#agendar').click(function() {
                 const data = {
                     codigo: $('#codigo').val().trim(),
@@ -207,10 +202,9 @@
                         alert(response.success || 'Cita agendada correctamente.');
                         location.reload();
                     },
-                    error: function(xhr) {
-                        const error = xhr.responseJSON?.error || 'Error al agendar la cita.';
-                        alert(error);
-                    }
+                    error: function() {
+                        alert('Error al agendar la cita.');
+                    },
                 });
             });
         });
@@ -224,25 +218,42 @@
                 const response = await fetch('/api/ultimo-recordatorio');
                 if (response.ok) {
                     const recordatorio = await response.json();
-                    mensajes.push(`Recordatorio: ${recordatorio.mensaje}`);
-                    colores.push(recordatorio.color);
-                    mostrarMensaje();
+                    mensajes.push(
+                        `Recordatorio:\nNombre: ${recordatorio.nombre}\nFecha: ${recordatorio.fecha}\nHora: ${recordatorio.hora}`
+                        );
+                    colores.push('bg-green-400');
                 }
             } catch (error) {
                 console.error('Error al obtener el último recordatorio:', error);
             }
         }
 
-        function mostrarMensaje() {
-            const mensaje = mensajes[indiceMensaje];
-            const color = colores[indiceMensaje];
-
-            $('#mensaje-texto').text(mensaje);
-            $('#mensaje-mascota').css('background-color', color);
-            $('#mensaje-mascota').removeClass('hidden');
-            $('#mascota').addClass('animate-move-left');
-
-            indiceMensaje = (indiceMensaje + 1) % mensajes.length;
+        async function obtenerUltimaCita() {
+            try {
+                const response = await fetch('/api/ultima-cita');
+                if (response.ok) {
+                    const cita = await response.json();
+                    mensajes.push(`Última cita:\nÁrea: ${cita.area}\nFecha: ${cita.fecha}\nHora: ${cita.hora}`);
+                    colores.push('bg-blue-400');
+                }
+            } catch (error) {
+                console.error('Error al obtener la última cita:', error);
+            }
         }
+
+        async function mostrarMensajesMascota() {
+            await obtenerUltimoRecordatorio();
+            await obtenerUltimaCita();
+            if (mensajes.length > 0) {
+                setInterval(() => {
+                    $('#mensaje-texto').text(mensajes[indiceMensaje]);
+                    $('#mensaje-mascota').removeClass('hidden').addClass(colores[indiceMensaje]);
+                    setTimeout(() => $('#mensaje-mascota').addClass('hidden'), 3000);
+                    indiceMensaje = (indiceMensaje + 1) % mensajes.length;
+                }, 5000);
+            }
+        }
+
+        mostrarMensajesMascota();
     </script>
 </x-app-layout>

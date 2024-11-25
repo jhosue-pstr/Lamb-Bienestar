@@ -36,7 +36,7 @@ class CitaController extends Controller
     {
         $validatedData = $request->validate([
             'codigo' => 'required|integer',
-            'area' => 'required|string',
+            'area' => 'required|in:Psicologia,Centro Medico,Capellania,Atencion Medica,Sostenibilidad ambiental',
             'fecha' => 'required|date',
             'hora' => 'required',
             'motivo' => 'nullable|string',
@@ -56,7 +56,7 @@ class CitaController extends Controller
             'fecha' => $validatedData['fecha'],
             'hora' => $validatedData['hora'],
             'motivo' => $validatedData['motivo'] ?? '',
-            'estado' => 'Pendiente',
+            'estado' => 'pendiente',
         ]);
 
         return response()->json(['success' => 'Cita agendada correctamente.']);
@@ -110,6 +110,5 @@ class CitaController extends Controller
             ];
         });
 
-        return response()->json($eventos);
-}
+        return response()->json($eventos);}
 }

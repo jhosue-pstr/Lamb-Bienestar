@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
-            $table->enum('area', ['Atencion medico primaria', 'Recreacion y Deporte', 'Orientacion Psicologica', 'Sostenibilidad ambiental']);
+            $table->enum('area', ['Psicologia','Centro Medico','Capellania','Atencion Medica','Sostenibilidad ambiental']);
             $table->enum('estado', ['asistio', 'no asistio', 'pendiente']);
             $table->string('motivo');
             $table->date('fecha');
