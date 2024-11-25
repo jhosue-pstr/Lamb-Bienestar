@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Atenciones;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,6 @@ class AtencionesSeeder extends Seeder
     public function run(): void
     {
 
-        \App\Models\Atenciones::factory(10)->create();
+        Atenciones::factory()->count(50)->create();
     }
 }

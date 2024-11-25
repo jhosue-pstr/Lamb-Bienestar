@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Atenciones;
-use App\Models\Cita;
-use App\Models\Estudiantes;
+use App\Models\Estudiante;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,18 +23,16 @@ class AtencionesFactory extends Factory
     {
 
         return [
-            'motivo_atencion' => $this->faker->sentence(),
-            'tipo' => $this->faker->word(),
-            'resposable' => $this->faker->name(),
-            'fecha_atencion' => $this->faker->date(),
-            'numero_derivaciones' => $this->faker->numberBetween(1, 10),
-            'descripcion_motivo' => $this->faker->text(255),
-            'observaciones' => $this->faker->sentence(),
-            'seguimiento_de_caso' => $this->faker->sentence(),
-            'estado' => $this->faker->randomElement(['Pendiente', 'Atendido', 'Cancelado']),
-            'ingreso' => $this->faker->boolean(),
-            'otros_datos' => $this->faker->text(),
-            'estudiante_id' => Estudiantes::inRandomOrder()->first()?->id ?? 1,
+            'motivoAtencion' => $this->faker->sentence,
+            'tipo' => $this->faker->word,
+            'responsable' => $this->faker->name,
+            'fechaAtencion' => $this->faker->date(),
+            'derivacion' => $this->faker->word,
+            'descripcionMotivo' => $this->faker->paragraph,
+            'lesionObservaciones' => $this->faker->paragraph,
+            'seguimientoCaso' => $this->faker->paragraph,
+            'otrosDatos' => $this->faker->paragraph,
+            'idEstudiante' => Estudiante::factory(), // Relacionado con un Estudiante creado por la factory
         ];
 
 

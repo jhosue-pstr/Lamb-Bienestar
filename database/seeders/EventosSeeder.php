@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cita;
+use App\Models\Eventos;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CitaSeeder extends Seeder
+class EventosSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-         Cita::factory(10)->create();
+        Eventos::factory()->count(50)->create();
+
     }
 }

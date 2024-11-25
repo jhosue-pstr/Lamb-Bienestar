@@ -9,13 +9,15 @@ class Cita extends Model
 {
     use HasFactory;  // Esto es importante para habilitar el uso de fábricas
 
+    protected $table = 'citas';
+
+    // Definir las columnas que pueden ser asignadas masivamente
     protected $fillable = [
         'area',
         'estado',
         'motivo',
         'fecha',
         'hora',
-        'atenciones_id',
-        'estudiante_id',
+        'estudiante_id', // Clave foránea hacia 'estudiantes'
     ];
 }

@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cita;
-use App\Models\Estudiantes;
-use App\Models\Historials;
+use App\Models\Estudiante;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,8 +26,7 @@ class CitaFactory extends Factory
             'motivo' => $this->faker->sentence(),
             'fecha' => $this->faker->date(),
             'hora' => $this->faker->time(),
-            'atenciones_id' => \App\Models\Atenciones::inRandomOrder()->first()->id, // Relacionado con el historial
-            'estudiante_id' => Estudiantes::inRandomOrder()->first()->id, // Relacionado con el estudiante
+            'estudiante_id' => Estudiante::inRandomOrder()->first()->id, // Relacionado con el estudiante
         ];
     }
 }

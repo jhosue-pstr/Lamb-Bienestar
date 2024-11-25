@@ -15,6 +15,6 @@ class FamiliaresEstudiantes extends Model
 
     public function estudiantes()
     {
-        return $this->hasMany(Estudiantes::class, 'familiares_estudiantes_id');
+        return $this->hasMany(Estudiante::class, 'familiares_estudiantes_id');
     }
 }

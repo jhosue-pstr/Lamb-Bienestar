@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cita;
+use App\Models\LugarNacimiento;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CitaSeeder extends Seeder
+class LugarNacimientoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-         Cita::factory(10)->create();
+        LugarNacimiento::factory()->count(50)->create();
     }
 }

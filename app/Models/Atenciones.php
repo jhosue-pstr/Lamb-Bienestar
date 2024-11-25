@@ -26,7 +26,7 @@ class Atenciones extends Model
 
     public function estudiante()
     {
-        return $this->belongsTo(Estudiantes::class, 'estudiante_id');
+        return $this->belongsTo(Estudiante::class, 'estudiante_id');
     }
 
     public function cita()
@@ -36,6 +36,6 @@ class Atenciones extends Model
 
     public function historiales()
     {
-        return $this->hasMany(Historials::class, 'atenciones_id');
+        return $this->hasMany(Historial::class, 'atenciones_id');
     }
 }
