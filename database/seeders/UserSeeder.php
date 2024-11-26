@@ -15,30 +15,34 @@ class UserSeeder extends Seeder
     {
         // Crear roles si no existen
         Role::firstOrCreate(['name' => 'Administrador', 'guard_name' => 'web']);
-        Role::firstOrCreate(['name' => 'Coordinador', 'guard_name' => 'web']);
-        Role::firstOrCreate(['name' => 'Trabajador Social', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'Coordinador BU', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'BU', 'guard_name' => 'web']);
         Role::firstOrCreate(['name' => 'Estudiante', 'guard_name' => 'web']);
 
-        // Crear el usuario 'Administrador' y asignarle el rol
-        $user = User::firstOrCreate([
+        // Crear un usuario para el rol 'Administrador'
+        $admin = User::firstOrCreate([
             'email' => 'ronald1pasot@gmai.com',
         ], [
             'name' => 'Ronald Jhosue Pastor Quispe',
             'password' => bcrypt('12345678'),
         ]);
-        $user->assignRole('Administrador'); // Asignar el rol 'Administrador'
+        $admin->assignRole('Administrador');
+        $coordinador = User::firstOrCreate([
+            'email' => 'coordinador@ejemplo.com',
+        ], [
+            'name' => 'Coordinador BU',
+            'password' => bcrypt('12345678'),
+        ]);
+        $coordinador->assignRole('Coordinador BU');
+        // Crear un usuario para el rol 'BU'
+        $bu = User::firstOrCreate([
+            'email' => 'bu@ejemplo.com',
+        ], [
+            'name' => 'BU Usuario',
+            'password' => bcrypt('12345678'),
+        ]);
+        $bu->assignRole('BU');
 
-        // Crear 10 usuarios con el rol 'Coordinador'
-        User::factory(10)->create()->each(function ($user) {
-            $user->assignRole('Coordinador');
-        });
-
-        // Crear 10 usuarios con el rol 'Trabajador Social'
-        User::factory(10)->create()->each(function ($user) {
-            $user->assignRole('Trabajador Social');
-        });
-
-        // Crear 10 usuarios con el rol 'Estudiante'
         User::factory(10)->create()->each(function ($user) {
             $user->assignRole('Estudiante');
         });

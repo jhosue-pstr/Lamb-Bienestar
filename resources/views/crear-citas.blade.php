@@ -7,8 +7,8 @@
             <div class="flex space-x-10">
                 <!-- Calendario -->
                 <div class="w-1/2">
-                    <h3 class="mb-6 text-xl font-bold">Seleccionar Fecha</h3>
-                    <div id="calendar" class="p-6 bg-gray-100 rounded-lg shadow bg-transparent"></div>
+                    <h3 class="mb-6 text-xl font-bold text-green-500">Seleccionar Fecha</h3>
+                    <div id="calendar" class="p-6 bg-transparent bg-gray-100 rounded-lg shadow"></div>
                     <input type="hidden" id="fecha" name="fecha">
                 </div>
 
@@ -21,7 +21,7 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <!-- Buscar estudiante por código -->
-                                    <div class="col-6 mb-3">
+                                    <div class="mb-3 col-6">
                                         <div class="form-group">
                                             <label for="codigo" class="bmd-label-floating">Código</label>
                                             <input type="text" name="codigo" id="codigo" class="form-control"
@@ -33,36 +33,36 @@
                                         Buscar estudiante
                                     </button>
 
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <div class="form-group">
-                                            <label for="nombres" class="bmd-label-floating">Nombres</label>
-                                            <input type="text" id="nombres" class="form-control bg-transparent"
+                                            <label for="nombres" class="font-bold text-green-500 bmd-label-floating">Nombres</label>
+                                            <input type="text" id="nombres" class="bg-transparent form-control"
                                                 readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="apellidos" class="bmd-label-floating">Apellidos</label>
-                                            <input type="text" id="apellidos" class="form-control bg-transparent"
+                                            <input type="text" id="apellidos" class="bg-transparent form-control"
                                                 readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="facultad" class="bmd-label-floating">Facultad</label>
-                                            <input type="text" id="facultad" class="form-control bg-transparent"
+                                            <input type="text" id="facultad" class="bg-transparent form-control"
                                                 readonly>
                                         </div>
                                     </div>
 
                                     <!-- Hora -->
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <div class="form-group">
                                             <label for="hora" class="bmd-label-floating">Hora</label>
                                             <input type="text" name="hora" id="hora"
-                                                class="form-control bg-transparent"
+                                                class="bg-transparent form-control"
                                                 placeholder="Ingrese la hora de la cita" required>
                                         </div>
                                     </div>
 
                                     <!-- Área -->
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <div class="form-group">
                                             <label for="area" class="bmd-label-floating">Área</label>
                                             <select name="area" id="area" class="form-control" required>
@@ -78,7 +78,7 @@
                                     </div>
 
                                     <!-- Motivo -->
-                                    <div class="col-12 mb-3">
+                                    <div class="mb-3 col-12">
                                         <div class="form-group">
                                             <label for="motivo" class="bmd-label-floating">Motivo (opcional)</label>
                                             <textarea name="motivo" id="motivo" class="form-control" placeholder="Ingrese el motivo (opcional)"></textarea>
@@ -100,22 +100,39 @@
 
             </div>
 
-            <!-- Mascota -->
-            <div id="mascota-container" class="absolute right-0 p-4" style="top: 748px; left: 1080px;">
-                <!-- Imagen de la mascota -->
-                <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-30 animate-move-left">
 
-                <!-- Nube de pensamiento -->
-                <div id="mensaje-mascota"
-                    class="hidden max-w-[200px] p-2 transform rounded-lg shadow-lg bg-green-400 -translate-x-2/3 -top-20 -left-3">
-                    <p id="mensaje-texto" class="text-base font-bold text-black"></p>
-                    <div
-                        class="absolute w-0 h-0 border-transparent border-t-5 border-l-5 border-r-5 border-t-green-400 -bottom-2 left-20">
-                    </div>
+            <div id="mascota-container" class="absolute right-0 p-4 transform -translate-x-40"
+            style="top: 750px; left: 700px;">
+            <!-- Imagen de la mascota -->
+            <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-45 animate-move-left"   style="with:80px ;height:170px;">
+
+
+            <!-- Nube de pensamiento más grande -->
+            <div id="mensaje-mascota"
+                class="absolute hidden bg-green-400 rounded-lg shadow-lg"
+                style="z-index: 9999; top: -100px; left: 10px; width: 210px; padding: 10px;">
+                <!-- Mensaje de texto -->
+                <p id="mensaje-texto" class="text-xl font-bold text-black">¡Hola, soy tu asistente!</p>
+                <!-- Triángulo para la nube -->
+                <div
+                    class="absolute w-0 h-0 border-transparent border-t-[15px] border-l-[15px] border-r-[15px] border-t-green-400"
+                    style="bottom: -15px; left: 50%; transform: translateX(-50%);">
                 </div>
             </div>
         </div>
-    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Librerías y Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
@@ -232,51 +249,81 @@
             });
         });
 
+
+
+
+
         let mensajes = [];
-        let colores = [];
-        let indiceMensaje = 0;
+    let colores = []; // Almacena los colores para cada mensaje
+    let indiceMensaje = 0; // Índice para alternar entre los mensajes
 
-        async function obtenerUltimoRecordatorio() {
-            try {
-                const response = await fetch('/api/ultimo-recordatorio');
-                if (response.ok) {
-                    const recordatorio = await response.json();
-                    mensajes.push(
-                        `Recordatorio:\nNombre: ${recordatorio.nombre}\nFecha: ${recordatorio.fecha}\nHora: ${recordatorio.hora}`
-                    );
-                    colores.push('bg-green-400');
-                }
-            } catch (error) {
-                console.error('Error al obtener el último recordatorio:', error);
+    // Función para obtener el último recordatorio
+    async function obtenerRecordatorio() {
+        try {
+            const response = await fetch('/api/recordatorio'); // Endpoint para recordatorio
+            const recordatorio = await response.json();
+
+            if (recordatorio) {
+                mensajes.push(
+                    `Recordatorio: \n${recordatorio.nombre}\nFecha: ${recordatorio.fecha}\nHora: ${recordatorio.hora}`
+                );
+                colores.push('bg-green-400'); // Verde para recordatorios
             }
+        } catch (error) {
+            console.error('Error al obtener el recordatorio:', error);
         }
+    }
 
-        async function obtenerUltimaCita() {
-            try {
-                const response = await fetch('/api/ultima-cita');
-                if (response.ok) {
-                    const cita = await response.json();
-                    mensajes.push(`Última cita:\nÁrea: ${cita.area}\nFecha: ${cita.fecha}\nHora: ${cita.hora}`);
-                    colores.push('bg-blue-400');
-                }
-            } catch (error) {
-                console.error('Error al obtener la última cita:', error);
+    // Función para obtener la última cita
+    async function obtenerUltimaCita() {
+        try {
+            const response = await fetch('/api/ultima-cita');
+            const cita = await response.json();
+
+            if (cita) {
+                mensajes.push(`Cita:\nÁrea: ${cita.area}\nFecha: ${cita.fecha}\nHora: ${cita.hora}`);
+                colores.push('bg-blue-400'); // Azul para citas
             }
+        } catch (error) {
+            console.error('Error al obtener la última cita:', error);
         }
+    }
 
-        async function mostrarMensajesMascota() {
-            await obtenerUltimoRecordatorio();
-            await obtenerUltimaCita();
-            if (mensajes.length > 0) {
-                setInterval(() => {
-                    $('#mensaje-texto').text(mensajes[indiceMensaje]);
-                    $('#mensaje-mascota').removeClass('hidden').addClass(colores[indiceMensaje]);
-                    setTimeout(() => $('#mensaje-mascota').addClass('hidden'), 3000);
-                    indiceMensaje = (indiceMensaje + 1) % mensajes.length;
-                }, 5000);
-            }
+    // Función para mostrar los mensajes
+    function mostrarMensaje() {
+        if (mensajes.length > 0) {
+            document.getElementById('mensaje-texto').textContent = mensajes[indiceMensaje];
+            document.getElementById('mensaje-mascota').classList.remove(...colores);
+            document.getElementById('mensaje-mascota').classList.add(colores[indiceMensaje]);
+            indiceMensaje = (indiceMensaje + 1) % mensajes.length; // Ciclo entre mensajes
         }
+    }
 
-        mostrarMensajesMascota();
+    // Función para mostrar el mensaje de la mascota
+    function mostrarMascota() {
+        document.getElementById("mensaje-mascota").classList.remove("hidden");
+        setInterval(mostrarMensaje, 5000); // Cambiar mensaje cada 5 segundos
+    }
+
+    // Inicializar el proceso
+    async function iniciar() {
+        await obtenerRecordatorio();
+        await obtenerUltimaCita();
+        mostrarMascota();
+    }
+
+    // Iniciar el proceso cuando cargue la página
+    window.onload = iniciar;
+
+
+
     </script>
+
+<style>
+    .selected-date {
+        background-color: #f87171 !important;
+        color: white !important;
+    }
+
+</style>
 </x-app-layout>

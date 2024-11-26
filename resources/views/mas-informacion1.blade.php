@@ -20,10 +20,10 @@
                         <form id="eventForm">
                             <div class="mb-4 form-group">
                                 <label for="eventType"
-                                    class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-700 bmd-label-floating"
                                     style="font-size: 1.25rem;">Dirigido a:</label>
                                 <select id="eventType" name="eventType"
-                                    class="form-control block w-full mt-1 rounded-md bg-transparent"
+                                    class="block w-full mt-1 bg-transparent rounded-md form-control"
                                     onchange="loadEventOptions()">
                                     <option value="">Seleccione...</option>
                                     <option value="todos">Evento General</option>
@@ -33,10 +33,10 @@
 
                             <div class="mb-4 form-group">
                                 <label for="eventName"
-                                    class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-700 bmd-label-floating"
                                     style="font-size: 1.25rem;">Nombre del evento:</label>
                                 <select id="eventName" name="eventName"
-                                    class="form-control block w-full mt-1 rounded-md bg-transparent" disabled
+                                    class="block w-full mt-1 bg-transparent rounded-md form-control" disabled
                                     onchange="fillEventDetails()">
                                     <option value="">Seleccione...</option>
                                 </select>
@@ -44,43 +44,44 @@
 
                             <div class="mb-4 form-group">
                                 <label for="eventLocation"
-                                    class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-700 bmd-label-floating"
                                     style="font-size: 1.25rem;">Lugar:</label>
                                 <input type="text" id="eventLocation"
-                                    class="form-control block w-full mt-1 rounded-md bg-transparent" readonly>
+                                    class="block w-full mt-1 bg-transparent rounded-md form-control" readonly>
                             </div>
 
                             <div class="mb-4 form-group">
                                 <label for="eventDate"
-                                    class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-700 bmd-label-floating"
                                     style="font-size: 1.25rem;">Fecha:</label>
                                 <input type="text" id="eventDate"
-                                    class="form-control block w-full mt-1 rounded-md bg-transparent" readonly>
+                                    class="block w-full mt-1 bg-transparent rounded-md form-control" readonly>
                             </div>
 
                             <div class="mb-4 form-group">
                                 <label for="eventTime"
-                                    class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-700 bmd-label-floating"
                                     style="font-size: 1.25rem;">Hora:</label>
                                 <input type="text" id="eventTime"
-                                    class="form-control block w-full mt-1 rounded-md bg-transparent" readonly>
+                                    class="block w-full mt-1 bg-transparent rounded-md form-control" readonly>
                             </div>
 
                             <div class="mb-4 form-group">
                                 <label for="eventDescription"
-                                    class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-700 bmd-label-floating"
                                     style="font-size: 1.25rem;">Descripción:</label>
-                                <textarea id="eventDescription" class="form-control block w-full mt-1 rounded-md bg-transparent" rows="3"
+                                <textarea id="eventDescription" class="block w-full mt-1 bg-transparent rounded-md form-control" rows="3"
                                     readonly></textarea>
                             </div>
 
 
-                            <div class="text-left">
+                            <div class="text-left" style="position: relative; z-index: 9999;">
                                 <button type="button" onclick="addRecordatorio()"
                                     class="px-10 py-4 text-lg font-bold text-white bg-green-700 rounded-md hover:bg-green-500">
                                     Añadir Recordatorio
                                 </button>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -88,6 +89,29 @@
             </div>
         </div>
     </div>
+
+
+
+    <div id="mascota-container" class="absolute right-0 p-4 transform -translate-x-40"
+    style="top: 650px; left: 700px;">
+    <!-- Imagen de la mascota -->
+    <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-45 animate-move-left"   style="with:80px ;height:170px;">
+
+
+    <!-- Nube de pensamiento más grande -->
+    <div id="mensaje-mascota"
+        class="absolute hidden bg-green-400 rounded-lg shadow-lg"
+        style="z-index: 9999; top: -100px; left: 10px; width: 210px; padding: 10px;">
+        <!-- Mensaje de texto -->
+        <p id="mensaje-texto" class="text-xl font-bold text-black">¡Hola, soy tu asistente!</p>
+        <!-- Triángulo para la nube -->
+        <div
+            class="absolute w-0 h-0 border-transparent border-t-[15px] border-l-[15px] border-r-[15px] border-t-green-400"
+            style="bottom: -15px; left: 50%; transform: translateX(-50%);">
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -126,24 +150,31 @@
 
     // Función para llenar los detalles del evento seleccionado
     async function fillEventDetails(eventId) {
-        if (eventId) {
-            try {
-                const response = await fetch(`/api/evento/${eventId}`);
-                const event = await response.json();
+    if (eventId) {
+        try {
+            const response = await fetch(`/api/evento/${eventId}`);
+            const event = await response.json();
 
-                document.getElementById("eventLocation").value = event.ubicacion || '';
-                document.getElementById("eventDate").value = event.fecha || '';
-                document.getElementById("eventTime").value = event.hora || '';
-                document.getElementById("eventDescription").value = event.descripcion || '';
+            console.log('Evento cargado:', event); // Imprime los datos del evento en la consola
 
-                // Actualizar la imagen
-                const eventImage = document.getElementById("event-image");
-                eventImage.src = event.afiche ? `/imagenes/${event.afiche}` : '/imagenes/default.jpeg';
-            } catch (error) {
-                console.error('Error al llenar los detalles del evento:', error);
+            document.getElementById("eventLocation").value = event.ubicacion || '';
+            document.getElementById("eventDate").value = event.fecha || '';
+            document.getElementById("eventTime").value = event.hora || '';
+            document.getElementById("eventDescription").value = event.descripcion || '';
+
+            // Actualizar la imagen
+            const eventImage = document.getElementById("event-image");
+            if (event.afiche) {
+                eventImage.src = `${event.afiche}?t=${new Date().getTime()}`;
+            } else {
+                eventImage.src = '/imagenes/default.jpeg';
             }
+        } catch (error) {
+            console.error('Error al llenar los detalles del evento:', error);
         }
     }
+}
+
 
     // Evento al cambiar el tipo de evento
     document.getElementById('eventType').addEventListener('change', async function() {
@@ -217,7 +248,7 @@
             const cita = await response.json();
 
             if (cita) {
-                mensajes.push(`Próxima cita: \n${cita.nombre}\nFecha: ${cita.fecha}\nHora: ${cita.hora}`);
+                mensajes.push(`Cita:\nÁrea: ${cita.area}\nFecha: ${cita.fecha}\nHora: ${cita.hora}`);
                 colores.push('bg-blue-400'); // Azul para citas
             }
         } catch (error) {

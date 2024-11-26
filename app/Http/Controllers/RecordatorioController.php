@@ -46,4 +46,5 @@ class RecordatorioController extends Controller
             'hora' => $recordatorio->hora ?? 'Sin hora',]);}
 
 
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire;
 
 use App\Models\Cita;
@@ -10,66 +9,41 @@ class EditarCita extends Component
     public $area;
     public $areas = [];
     public $citas = [];
-    public $cita; // Cita seleccionada
-    public $estado; // Agregar propiedad para el estado
-    public $fecha;  // Agregar propiedad para la fecha
-    public $hora;   // Agregar propiedad para la hora
+    public $estados = [];  // Cambiar a un array para almacenar el estado de cada cita
 
     public function mount()
     {
-        // Definir las áreas disponibles
+        // Lista de áreas
         $this->areas = ['Psicologia', 'Centro Medico', 'Capellania', 'Atencion Medica', 'Sostenibilidad ambiental'];
 
-        // Cargar todas las citas al inicio
+        // Cargar todas las citas al inicio y inicializar sus estados
         $this->citas = Cita::with('estudiante')->get();
+        foreach ($this->citas as $cita) {
+            $this->estados[$cita->id] = $cita->estado;  // Inicializa el estado de cada cita
+        }
     }
 
     public function filtrarCitas()
     {
-        // Filtrar las citas por área seleccionada
+        // Filtrar citas por área
         $query = Cita::query();
         if ($this->area) {
             $query->where('area', $this->area);
         }
         $this->citas = $query->with('estudiante')->get();
+        foreach ($this->citas as $cita) {
+            $this->estados[$cita->id] = $cita->estado;  // Asegurarse de que el estado esté sincronizado
+        }
     }
 
-    public function editarCita($id)
+    public function actualizarEstado($id)
     {
-        // Cargar la cita seleccionada
-        $this->cita = Cita::find($id);
-
-        // Cargar los valores actuales en las propiedades
-        $this->estado = $this->cita->estado;
-        $this->fecha = $this->cita->fecha;
-        $this->hora = $this->cita->hora;
-        $this->area = $this->cita->area;
-    }
-
-    public function guardarCita()
-    {
-        // Validar los datos antes de guardarlos
-        $this->validate([
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-            'estado' => 'required|in:Asistió,No asistió,Pendiente',
-        ]);
-
-        // Actualizar la cita con los nuevos valores
-        $this->cita->update([
-            'fecha' => $this->fecha,
-            'hora' => $this->hora,
-            'estado' => $this->estado,
-        ]);
-
-        // Mensaje de éxito
-        session()->flash('message', 'Cita actualizada correctamente.');
-
-        // Cerrar el modal después de guardar
-        $this->dispatchBrowserEvent('close-modal');
-
-        // Recargar la lista de citas
-        $this->filtrarCitas();
+        // Actualizar el estado de la cita en la base de datos
+        $cita = Cita::find($id);
+        if ($cita) {
+            $cita->estado = $this->estados[$id];  // Usar el estado específico de esa cita
+            $cita->save();
+        }
     }
 
     public function render()

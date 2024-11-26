@@ -34,8 +34,7 @@ class EventosAnunciosController extends Controller
         $tipo = $request->query('tipo'); // Tipo seleccionado
         $eventos = Eventos::where('tipo', $tipo)->get(); // Filtrar eventos por tipo
 
-        return response()->json($eventos); // Devolver eventos en formato JSON
-    }
+        return response()->json($eventos);}
 
 
 

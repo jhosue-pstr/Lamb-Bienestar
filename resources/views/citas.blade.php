@@ -69,24 +69,36 @@
 
 
 
-
-
     <div id="mascota-container" class="absolute right-0 p-4 transform -translate-x-40"
-        style="top: 748px; left: 1080px;">
-        <!-- Imagen de la mascota -->
-        <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-30 animate-move-left">
+    style="top: 750px; left: 800px;">
+    <!-- Imagen de la mascota -->
+    <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-45 animate-move-left"   style="with:80px ;height:170px;">
 
-        <!-- Nube de pensamiento más grande -->
-        <div id="mensaje-mascota"
-            class="absolute hidden max-w-[200px] p-1 transform bg-green-400 rounded-lg shadow-lg -translate-x-2/3 -top-20 -left-3">
-            <!-- Mensaje de texto más grande -->
-            <p id="mensaje-texto" class="text-base font-bold text-black"></p>
-            <!-- Triángulo más grande para la nube de pensamiento -->
-            <div
-                class="absolute w-0 h-0 border-transparent border-t-5 border-l-5 border-r-5 border-t-green-400 -bottom-2 left-20">
-            </div>
+
+    <!-- Nube de pensamiento más grande -->
+    <div id="mensaje-mascota"
+        class="absolute hidden bg-green-400 rounded-lg shadow-lg"
+        style="z-index: 9999; top: -100px; left: 10px; width: 210px; padding: 10px;">
+        <!-- Mensaje de texto -->
+        <p id="mensaje-texto" class="text-xl font-bold text-black">¡Hola, soy tu asistente!</p>
+        <!-- Triángulo para la nube -->
+        <div
+            class="absolute w-0 h-0 border-transparent border-t-[15px] border-l-[15px] border-r-[15px] border-t-green-400"
+            style="bottom: -15px; left: 50%; transform: translateX(-50%);">
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -98,7 +110,7 @@
                 imagen: "{{ asset('imagenes/consulta1.jpg') }}",
                 texto: `
                     <h1 class="text-4xl font-bold text-red-700">Psicología</h1>
-                    <p class="mt-5 text-2xl font-semibold">Descripción: La sección de Psicología de la UPEU se dedica a brindar apoyo integral a los estudiantes, personal docente y administrativo, promoviendo su bienestar mental y emocional. Los servicios incluyen:</p>
+                    <p class="mt-5 text-2xl font-semibold font-bold text-black">Descripción: La sección de Psicología de la UPEU se dedica a brindar apoyo integral a los estudiantes, personal docente y administrativo, promoviendo su bienestar mental y emocional. Los servicios incluyen:</p>
                     <ul class="pl-4 mt-8 ml-10 space-y-6 text-xl text-gray-800 list-disc">
                         <li>Evaluación psicológica y diagnóstico de trastornos emocionales y conductuales.</li>
                         <li>Terapias individuales y grupales enfocadas en el manejo del estrés, ansiedad y depresión.</li>
@@ -114,7 +126,7 @@
                 imagen: "{{ asset('imagenes/consulta2.jpg') }}",
                 texto: `
                     <h1 class="text-4xl font-bold text-red-700">Centro Médico</h1>
-                    <p class="mt-5 text-2xl font-semibold">Descripción: El Centro Médico de la UPEU está enfocado en garantizar la salud física de la comunidad universitaria a través de un enfoque preventivo y de atención primaria. Sus servicios abarcan:</p>
+                    <p class="mt-5 text-2xl font-semibold font-bold text-black">Descripción: El Centro Médico de la UPEU está enfocado en garantizar la salud física de la comunidad universitaria a través de un enfoque preventivo y de atención primaria. Sus servicios abarcan:</p>
                     <ul class="pl-4 mt-8 ml-10 space-y-6 text-xl text-gray-800 list-disc">
                         <li>Consultas médicas generales para el diagnóstico y tratamiento de enfermedades comunes.</li>
                         <li>Controles médicos periódicos y campañas de despistaje de enfermedades como hipertensión y diabetes.</li>
@@ -130,7 +142,7 @@
                 imagen: "{{ asset('imagenes/consulta3.jpg') }}",
                 texto: `
                     <h1 class="text-3xl font-bold text-red-700">Capellanía</h1>
-                    <p class="mt-5 text-2xl font-semibold">Descripción: La Capellanía de la UPEU está comprometida en ofrecer un acompañamiento espiritual y moral a los estudiantes, personal y sus familias. Sus actividades incluyen:</p>
+                    <p class="mt-5 text-2xl font-semibold font-bold text-black">Descripción: La Capellanía de la UPEU está comprometida en ofrecer un acompañamiento espiritual y moral a los estudiantes, personal y sus familias. Sus actividades incluyen:</p>
                     <ul class="pl-4 mt-8 ml-10 space-y-6 text-xl text-gray-800 list-disc">
                         <li>Consejería espiritual y apoyo emocional, con un enfoque en el fortalecimiento de la fe y los valores cristianos.</li>
                         <li>Organización de cultos, estudios bíblicos y programas de oración para la comunidad universitaria.</li>
@@ -146,7 +158,7 @@
                 imagen: "{{ asset('imagenes/consulta4.jpg') }}",
                 texto: `
                     <h1 class="text-3xl font-bold text-red-700">Atención Médica</h1>
-                    <p class="mt-5 text-2xl font-semibold">Descripción: El servicio de Atención Médica en la UPEU está orientado a ofrecer una respuesta rápida y eficiente a las necesidades de salud de la comunidad universitaria. Se enfoca en:</p>
+                    <p class="mt-5 text-2xl font-semibold font-bold text-black">Descripción: El servicio de Atención Médica en la UPEU está orientado a ofrecer una respuesta rápida y eficiente a las necesidades de salud de la comunidad universitaria. Se enfoca en:</p>
                     <ul class="pl-4 mt-8 ml-10 space-y-6 text-xl text-gray-800 list-disc">
                         <li>Atención inmediata para emergencias menores como cortes, quemaduras y lesiones deportivas.</li>
                         <li>Evaluaciones médicas periódicas para el seguimiento del estado de salud de los estudiantes.</li>
@@ -162,7 +174,7 @@
                 imagen: "{{ asset('imagenes/consulta5.jpg') }}",
                 texto: `
                     <h1 class="text-3xl font-bold text-red-700">Sostenibilidad Ambiental</h1>
-                    <p class="mt-5 text-2xl font-semibold">Descripción: El área de Sostenibilidad Ambiental de la UPEU busca fomentar una cultura de respeto y cuidado del medio ambiente en toda la comunidad universitaria. Sus iniciativas incluyen:</p>
+                    <p class="mt-5 text-2xl font-semibold font-bold text-black">Descripción: El área de Sostenibilidad Ambiental de la UPEU busca fomentar una cultura de respeto y cuidado del medio ambiente en toda la comunidad universitaria. Sus iniciativas incluyen:</p>
                     <ul class="pl-4 mt-8 ml-10 space-y-6 text-xl text-gray-800 list-disc">
                         <li>Programas de reciclaje y reducción de residuos dentro del campus universitario.</li>
                         <li>Talleres y charlas educativas sobre prácticas sostenibles, como el uso eficiente de recursos y la conservación de energía.</li>
@@ -252,5 +264,82 @@
         }
 
         document.addEventListener('DOMContentLoaded', iniciarCicloMensajes);
+
+
+
+
+
+
+
+
+
+    let mensajes = [];
+    let colores = []; // Almacena los colores para cada mensaje
+    let indiceMensaje = 0; // Índice para alternar entre los mensajes
+
+    // Función para obtener el último recordatorio
+    async function obtenerRecordatorio() {
+        try {
+            const response = await fetch('/api/recordatorio'); // Endpoint para recordatorio
+            const recordatorio = await response.json();
+
+            if (recordatorio) {
+                mensajes.push(
+                    `Recordatorio: \n${recordatorio.nombre}\nFecha: ${recordatorio.fecha}\nHora: ${recordatorio.hora}`
+                );
+                colores.push('bg-green-400'); // Verde para recordatorios
+            }
+        } catch (error) {
+            console.error('Error al obtener el recordatorio:', error);
+        }
+    }
+
+    // Función para obtener la última cita
+    async function obtenerUltimaCita() {
+        try {
+            const response = await fetch('/api/ultima-cita');
+            const cita = await response.json();
+
+            if (cita) {
+                mensajes.push(`Cita:\nÁrea: ${cita.area}\nFecha: ${cita.fecha}\nHora: ${cita.hora}`);
+                colores.push('bg-blue-400'); // Azul para citas
+            }
+        } catch (error) {
+            console.error('Error al obtener la última cita:', error);
+        }
+    }
+
+    // Función para mostrar los mensajes
+    function mostrarMensaje() {
+        if (mensajes.length > 0) {
+            document.getElementById('mensaje-texto').textContent = mensajes[indiceMensaje];
+            document.getElementById('mensaje-mascota').classList.remove(...colores);
+            document.getElementById('mensaje-mascota').classList.add(colores[indiceMensaje]);
+            indiceMensaje = (indiceMensaje + 1) % mensajes.length; // Ciclo entre mensajes
+        }
+    }
+
+    // Función para mostrar el mensaje de la mascota
+    function mostrarMascota() {
+        document.getElementById("mensaje-mascota").classList.remove("hidden");
+        setInterval(mostrarMensaje, 5000); // Cambiar mensaje cada 5 segundos
+    }
+
+    // Inicializar el proceso
+    async function iniciar() {
+        await obtenerRecordatorio();
+        await obtenerUltimaCita();
+        mostrarMascota();
+    }
+
+    // Iniciar el proceso cuando cargue la página
+    window.onload = iniciar;
+
+
+
     </script>
+
+
+
 </x-app-layout>
+

@@ -3,9 +3,8 @@
     <div class="full-box page-header">
         <div class="container-fluid">
             <div class="row">
-                <!-- Columna 1: Formulario de campos -->
                 <div class="col-12 col-md-6">
-                    <div class="relative  p-6 rounded-lg"
+                    <div class="relative p-6 rounded-lg"
                         style="height: 800px; overflow-y: auto; background-image: url('imagenes/camino.jpg'); background-size: cover; background-position: center; background-color: rgba(255, 255, 255, 0.5); background-blend-mode: overlay;">
                         <div class="flex flex-col items-start">
                             <!-- Botones de navegación -->
@@ -30,50 +29,43 @@
                                 </button>
                             </div>
 
-
-
-
-
-
                             <div class="relative w-full mt-6">
+                                <!-- Barra gris uniforme -->
                                 <div class="absolute h-full transform -translate-x-1/2 border-l-4 border-gray-300 left-1/2"
-                                    style="height: 105%"></div>
+                                     style="height: 180%;"></div>
 
+                                <!-- Ruta General -->
                                 <div id="ruta-general" style="display: block;">
-                                    <div class="mt-6 space-y-4">
+                                    <div class="mt-6 space-y-8">
                                         @foreach ($eventosGenerales as $index => $evento)
-                                            <div class="flex items-center mb-6">
+                                            <div class="flex items-center">
                                                 @if ($index % 2 == 0)
+                                                    <!-- Cuadro blanco a la izquierda -->
                                                     <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="w-5/12 p-4 ml-4 bg-white border border-gray-200 rounded-full shadow-md hover:bg-gray-100"
-                                                        style="margin-right: 30px; text-decoration: none;">
-                                                        <h3 class="text-lg font-bold text-gray-800">{{ $evento->fecha }}
-                                                        </h3>
-                                                        <p class="text-gray-600">{{ $evento->nombre }}</p>
+                                                       class="w-5/12 p-4 ml-auto bg-white border border-gray-200 rounded-full shadow-md hover:bg-gray-100"
+                                                       style="margin-right: 80px; text-decoration: none;"> <!-- Aumentar margen derecho -->
+                                                        <h3 class="text-xl font-extrabold text-center text-gray-800">{{ $evento->fecha }}</h3>
+                                                        <p class="text-lg font-extrabold text-center text-gray-600">{{ $evento->nombre }}</p>
                                                     </a>
-                                                    <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="relative w-2 text-center">
+                                                    <!-- Bolita verde -->
+                                                    <div class="relative w-2 text-center">
                                                         <div class="absolute w-6 h-6 bg-green-700 border border-white rounded-full"
-                                                            style="left: 90%; top: 50%; transform: translate(-50%, -50%);">
-                                                        </div>
-                                                    </a>
+                                                             style="right: 35px; top: 50%; transform: translate(-50%, -50%);"></div>
+                                                    </div>
                                                     <div class="w-5/12"></div> <!-- Espacio vacío a la derecha -->
                                                 @else
                                                     <div class="w-5/12"></div> <!-- Espacio vacío a la izquierda -->
-                                                    <!-- Contenedor de la bolita verde -->
-                                                    <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="relative w-2 text-center">
+                                                    <!-- Bolita verde -->
+                                                    <div class="relative w-2 text-center">
                                                         <div class="absolute w-6 h-6 bg-green-700 border border-white rounded-full"
-                                                            style="left: 650%; top: 50%; transform: translate(-50%, -50%);">
-                                                        </div>
-                                                    </a>
-                                                    <!-- Contenedor del cuadro blanco a la derecha -->
+                                                             style="left: 55px; top: 50%; transform: translate(-50%, -50%);"></div>
+                                                    </div>
+                                                    <!-- Cuadro blanco a la derecha -->
                                                     <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="w-5/12 p-4 bg-white border border-gray-200 rounded-full shadow-md hover:bg-gray-100"
-                                                        style="margin-left: 80px; text-decoration: none;">
-                                                        <h3 class="text-lg font-bold text-gray-800">{{ $evento->fecha }}
-                                                        </h3>
-                                                        <p class="text-gray-600">{{ $evento->nombre }}</p>
+                                                       class="w-5/12 p-4 mr-auto bg-white border border-gray-200 rounded-full shadow-md hover:bg-gray-100"
+                                                       style="margin-left: 80px; text-decoration: none;"> <!-- Aumentar margen izquierdo -->
+                                                        <h3 class="text-xl font-extrabold text-center text-gray-800">{{ $evento->fecha }}</h3>
+                                                        <p class="text-lg font-extrabold text-center text-gray-600">{{ $evento->nombre }}</p>
                                                     </a>
                                                 @endif
                                             </div>
@@ -81,46 +73,38 @@
                                     </div>
                                 </div>
 
-                                <!-- Eventos Escuela -->
+                                <!-- Ruta Escuela -->
                                 <div id="ruta-escuela" style="display: none;">
-                                    <div class="mt-6 space-y-4">
+                                    <div class="mt-6 space-y-8">
                                         @foreach ($eventosEscuela as $index => $evento)
-                                            <div class="flex items-center mb-6">
+                                            <div class="flex items-center">
                                                 @if ($index % 2 == 0)
-                                                    <!-- Contenedor del cuadro blanco a la izquierda -->
-                                                    <a href="{{ route('mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="w-5/12 p-4 ml-4 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100"
-                                                        style="margin-right: 30px; text-decoration: none;">
-                                                        <h3 class="text-lg font-bold text-gray-800">{{ $evento->fecha }}
-                                                        </h3>
-                                                        <p class="text-gray-600">{{ $evento->nombre }}</p>
-                                                    </a>
-
-
-                                                    <!-- Contenedor de la bolita verde -->
+                                                    <!-- Cuadro blanco a la izquierda -->
                                                     <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="relative w-2 text-center">
-                                                        <div class="absolute w-6 h-6 bg-green-700 border border-white rounded-full"
-                                                            style="left: 90%; top: 50%; transform: translate(-50%, -50%);">
-                                                        </div>
+                                                       class="w-5/12 p-4 ml-auto bg-white border border-gray-200 rounded-full shadow-md hover:bg-gray-100"
+                                                       style="margin-right: 80px; text-decoration: none;"> <!-- Aumentar margen derecho -->
+                                                        <h3 class="text-xl font-extrabold text-center text-gray-800">{{ $evento->fecha }}</h3>
+                                                        <p class="text-lg font-extrabold text-center text-gray-600">{{ $evento->nombre }}</p>
                                                     </a>
+                                                    <!-- Bolita verde -->
+                                                    <div class="relative w-2 text-center">
+                                                        <div class="absolute w-6 h-6 bg-green-700 border border-white rounded-full"
+                                                             style="right: 35px; top: 50%; transform: translate(-50%, -50%);"></div>
+                                                    </div>
                                                     <div class="w-5/12"></div> <!-- Espacio vacío a la derecha -->
                                                 @else
                                                     <div class="w-5/12"></div> <!-- Espacio vacío a la izquierda -->
-                                                    <!-- Contenedor de la bolita verde -->
-                                                    <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="relative w-2 text-center">
+                                                    <!-- Bolita verde -->
+                                                    <div class="relative w-2 text-center">
                                                         <div class="absolute w-6 h-6 bg-green-700 border border-white rounded-full"
-                                                            style="left: 650%; top: 50%; transform: translate(-50%, -50%);">
-                                                        </div>
-                                                    </a>
-                                                    <!-- Contenedor del cuadro blanco a la derecha -->
-                                                    <a href="{{ route('mas-informacion', ['id' => $evento->id]) }}"
-                                                        class="w-5/12 p-4 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100"
-                                                        style="margin-left: 70px; text-decoration: none;">
-                                                        <h3 class="text-lg font-bold text-gray-800">
-                                                            {{ $evento->fecha }}</h3>
-                                                        <p class="text-gray-600">{{ $evento->nombre }}</p>
+                                                             style="left: 55px; top: 50%; transform: translate(-50%, -50%);"></div>
+                                                    </div>
+                                                    <!-- Cuadro blanco a la derecha -->
+                                                    <a href="{{ url('/mas-informacion', ['id' => $evento->id]) }}"
+                                                       class="w-5/12 p-4 mr-auto bg-white border border-gray-200 rounded-full shadow-md hover:bg-gray-100"
+                                                       style="margin-left: 80px; text-decoration: none;"> <!-- Aumentar margen izquierdo -->
+                                                        <h3 class="text-xl font-extrabold text-center text-gray-800">{{ $evento->fecha }}</h3>
+                                                        <p class="text-lg font-extrabold text-center text-gray-600">{{ $evento->nombre }}</p>
                                                     </a>
                                                 @endif
                                             </div>
@@ -128,39 +112,37 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
-
                 </div>
 
-                <div class="col-12 col-md-6">
 
-                    <div id="carouselExample" class="relative overflow-hidden rounded-lg shadow-lg"
-                        style="height: 800px;">
+                <div class="col-12 col-md-6">
+                    <div id="carouselExample" class="relative overflow-hidden rounded-lg shadow-lg" style="height: 800px;">
                         <div class="relative h-full transition-transform duration-500 ease-in-out carousel-content">
-                            @foreach ($eventosGenerales as $index => $evento)
-                                <div class="carousel-item {{ $index === 0 ? 'active' : 'hidden' }}"
-                                    style="transform: translateX({{ 100 * $index }}%); height: 100%;">
-                                    <img src="{{ asset($evento->afiche) }}" alt="Evento {{ $evento->nombre }}"
-                                        class="object-cover w-full h-full">
+                            @foreach($eventosGenerales as $index => $evento)
+                                <div class="carousel-item {{ $index === 0 ? 'active' : 'hidden' }}" style="transform: translateX({{ 100 * $index }}%); height: 100%;">
+                                    <img src="{{ asset($evento->afiche) }}" alt="Evento {{ $evento->nombre }}" class="object-cover w-full h-full">
                                 </div>
                             @endforeach
                         </div>
-                        <button onclick="prevSlide()"
-                            class="absolute left-0 px-4 py-2 text-2xl text-white transform -translate-y-1/2 bg-gray-700 bg-opacity-75 rounded-full top-1/2 hover:bg-opacity-100">&lt;</button>
-                        <button onclick="nextSlide()"
-                            class="absolute right-0 px-4 py-2 text-2xl text-white transform -translate-y-1/2 bg-gray-700 bg-opacity-75 rounded-full top-1/2 hover:bg-opacity-100">&gt;</button>
+                        <button onclick="prevSlide()" class="absolute left-0 px-4 py-2 text-2xl text-white transform -translate-y-1/2 bg-gray-700 bg-opacity-75 rounded-full top-1/2 hover:bg-opacity-100">&lt;</button>
+                        <button onclick="nextSlide()" class="absolute right-0 px-4 py-2 text-2xl text-white transform -translate-y-1/2 bg-gray-700 bg-opacity-75 rounded-full top-1/2 hover:bg-opacity-100">&gt;</button>
                     </div>
 
-                    <div class="mt-2 text-center" style="margin-left: 40px; position: relative; z-index: 10;">
+
+                    <!-- Botón delante del carrusel -->
+                    <div class="text-center" style="position: absolute; top: 725px; left: 50%; transform: translateX(-50%); z-index: 20;">
                         <button onclick="window.location.href='/mas-informacion1'"
                             class="px-8 py-4 text-xl font-bold text-white bg-green-700 rounded-lg hover:bg-green-800">
                             Más Información
                         </button>
                     </div>
-
-
                 </div>
+
+
 
             </div>
         </div>
@@ -175,23 +157,26 @@
 
 
 
-
     <div id="mascota-container" class="absolute right-0 p-4 transform -translate-x-40"
-        style="top: 747px; left: 1080px;">
-        <!-- Imagen de la mascota -->
-        <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="h-40 w-30 animate-move-left">
+    style="top: 730px; left: 870px;">
+    <!-- Imagen de la mascota -->
+    <img src="/imagenes/mascota322.png" alt="Mascota" id="mascota" class="w-40 h-40 animate-move-left">
 
-        <!-- Nube de pensamiento más grande -->
-        <div id="mensaje-mascota"
-            class="absolute hidden max-w-[200px] p-1 transform rounded-lg shadow-lg -translate-x-2/3 -top-20 -left-3 bg-green-400"
-            style="z-index: 9999;">
-            <!-- Mensaje de texto -->
-            <p id="mensaje-texto" class="text-base font-bold text-black"></p>
-            <!-- Triángulo para la nube -->
-            <div
-                class="absolute w-0 h-0 border-transparent border-t-5 border-l-5 border-r-5 border-t-green-400 -bottom-2 left-20">
-            </div>
+    <!-- Nube de pensamiento más grande -->
+    <div id="mensaje-mascota"
+        class="absolute hidden bg-green-400 rounded-lg shadow-lg"
+        style="z-index: 9999; top: -70px; left: -10px; width: 240px; padding: 20px;">
+        <!-- Mensaje de texto -->
+        <p id="mensaje-texto" class="text-xl font-bold text-black">¡Hola, soy tu asistente!</p>
+        <!-- Triángulo para la nube -->
+        <div
+            class="absolute w-0 h-0 border-transparent border-t-[15px] border-l-[15px] border-r-[15px] border-t-green-400"
+            style="bottom: -15px; left: 50%; transform: translateX(-50%);">
         </div>
+    </div>
+</div>
+
+
 
 </x-app-layout>
 
@@ -210,28 +195,27 @@
     }
 
     let currentSlide = 0;
-    const slides = document.querySelectorAll('.carousel-item');
-    const totalSlides = slides.length;
+        const slides = document.querySelectorAll('.carousel-item');
+        const totalSlides = slides.length;
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('hidden', i !== index);
-            slide.style.transform = `translateX(${100 * (i - index)}%)`;
-        });
-        currentSlide = index;
-    }
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('hidden', i !== index);
+                slide.style.transform = `translateX(${100 * (i - index)}%)`;
+            });
+            currentSlide = index;
+        }
 
-    function nextSlide() {
-        showSlide((currentSlide + 1) % totalSlides);
-    }
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
 
-    function prevSlide() {
-        showSlide((currentSlide - 1 + totalSlides) % totalSlides);
-    }
+        function prevSlide() {
+            showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
 
-    setInterval(nextSlide, 5000);
-    showSlide(currentSlide);
-
+        setInterval(nextSlide, 5000);
+        showSlide(currentSlide);
 
 
 

@@ -4,35 +4,35 @@
     <!-- Content -->
     <div class="full-box tile-container">
 
-        <a href="listadmin.html" class="tile">
-            <div class="tile-tittle">List admins</div>
+        <a href="eventos-anuncios" class="tile">
+            <div class="tile-tittle"> Eventos</div>
             <div class="tile-icon">
                 <i class="fas fa-users fa-fw"></i>
-                <p>17 Registered</p>
+                <p>Eventos</p>
             </div>
         </a>
 
-        <a href="productlist.html" class="tile">
-            <div class="tile-tittle">List products</div>
+        <a href="anuncios" class="tile">
+            <div class="tile-tittle"> Anuncios</div>
             <div class="tile-icon">
                 <i class="fas fa-boxes fa-fw"></i>
-                <p>50 Registered</p>
+                <p>Anuncios</p>
             </div>
         </a>
 
-        <a href="#" class="tile">
-            <div class="tile-tittle">List clients</div>
+        <a href="Historial2" class="tile">
+            <div class="tile-tittle">Historial</div>
             <div class="tile-icon">
                 <i class="fas fa-child fa-fw"></i>
-                <p>150 Registered</p>
+                <p> Historial</p>
             </div>
         </a>
 
-        <a href="#" class="tile">
-            <div class="tile-tittle">List providers</div>
+        <a href="citas" class="tile">
+            <div class="tile-tittle">Citas</div>
             <div class="tile-icon">
                 <i class="fas fa-truck-moving fa-fw"></i>
-                <p>9 Registered</p>
+                <p>Citas</p>
             </div>
         </a>
 

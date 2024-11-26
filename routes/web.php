@@ -184,4 +184,17 @@ Route::get('/cita/{id}', CitaDetalle::class)->name('cita.detalle');
 
 Route::get('/editarCita' ,EditarCita::class)->name('editarCita');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 });

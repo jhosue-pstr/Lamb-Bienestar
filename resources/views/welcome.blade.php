@@ -5,81 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lamb-Bienestar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes moveText {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, green, rgb(113, 158, 22));
-            background-size: cover;
-            background-repeat: no-repeat;
-            font-family: Arial, sans-serif;
+        @keyframes moveLeft {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
 
-        button {
-            padding: 0.8em 1.8em;
-            border: 2px solid #17C3B2;
-            position: relative;
-            overflow: hidden;
-            background-color: transparent;
-            text-align: center;
-            text-transform: uppercase;
-            font-size: 16px;
-            transition: .3s;
-            z-index: 1;
-            font-family: inherit;
-            color: black;
+        .animate-move-text {
+            animation: moveText 2s ease-out;
         }
 
-        button::before {
-            content: '';
-            width: 0;
-            height: 300%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            background: lime;
-            transition: .5s ease;
-            display: block;
-            z-index: -1;
-        }
-
-        button:hover::before {
-            width: 105%;
-        }
-
-        button:hover {
-            color: #111;
-        }
-
-        h1,
-        p {
-            margin-bottom: 10px;
-            color: #111;
-            font-size: 100px;
+        .animate-move-left {
+            animation: moveLeft 2s ease-out;
         }
     </style>
 </head>
 
-<body>
-    <div>
-        <h1>Bienvenido</h1>
-        <p> A tu Lamb Bienestar</p>
+<body class="bg-gradient-to-r from-green-500 to-yellow-500 h-screen flex justify-center items-center">
+    <div class="text-center">
+        <h1 class="text-6xl text-black mb-4 animate-move-text">Bienvenido</h1>
+        <p class="text-4xl text-black mb-10 animate-move-text">A tu Lamb Bienestar</p>
         <a href="{{ route('login') }}">
-            <button>Iniciar sesión</button>
+            <button
+                class="px-8 py-3 border-2 border-teal-400 text-black font-semibold text-lg uppercase relative overflow-hidden group">
+                Iniciar sesión
+                <span
+                    class="absolute w-0 h-0 bg-lime-500 transition-all group-hover:w-full group-hover:h-full duration-500"></span>
+            </button>
         </a>
-
     </div>
+
+    <img src="/imagenes/mascota2.png" alt="Mascota" class="w-96 h-96 animate-move-left">
 </body>
 
 </html>
