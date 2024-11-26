@@ -29,25 +29,27 @@
                                 <div class="form-group">
                                     <label for="eventLocation" class="bmd-label-floating">Lugar</label>
                                     <input type="text" id="eventLocation" name="eventLocation"
-                                        value="{{ $anuncio->ubicacion }}" class="form-control" readonly>
+                                        value="{{ $anuncio->ubicacion }}" class="form-control bg-transparent" readonly>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label for="eventDate" class="bmd-label-floating">Fecha</label>
                                     <input type="text" id="eventDate" name="eventDate" value="{{ $anuncio->fecha }}"
-                                        class="form-control" readonly>
+                                        class="form-control bg-transparent" readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="eventTime" class="bmd-label-floating">Hora</label>
                                     <input type="text" id="eventTime" name="eventTime" value="{{ $anuncio->hora }}"
-                                        class="form-control" readonly>
+                                        class="form-control bg-transparent" readonly>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="eventDescription" class="bmd-label-floating">Descripción</label>
+                                <div class="form-group ">
+                                    <text for="eventDescription" class="bmd-label-floating">Descripción</text>
                                     <input type="text" id="eventDescription" name="eventDescription"
-                                        value="{{ $anuncio->descripcion }}" class="form-control" readonly>
+                                        value="{{ $anuncio->descripcion }}" class="form-control bg-transparent"
+                                        readonly>
                                 </div>
                             </div>
 

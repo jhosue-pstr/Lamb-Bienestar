@@ -1,51 +1,68 @@
 <x-app-layout>
-    <div class="container flex flex-col items-center gap-8 px-4 py-8 mx-auto">
-        <!-- Botones de pestañas -->
-        <div class="flex justify-center mb-6 space-x-8 border-b">
-            <button onclick="mostrarSeccion(0)"
-                class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Psicología</button>
-            <button onclick="mostrarSeccion(1)"
-                class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Centro
-                Médico</button>
-            <button onclick="mostrarSeccion(2)"
-                class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Capellanía</button>
-            <button onclick="mostrarSeccion(3)"
-                class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Atención
-                Médica</button>
-            <button onclick="mostrarSeccion(4)"
-                class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Sostenibilidad
-                Ambiental</button>
-        </div>
 
 
-        <!-- Sección dinámica -->
-        <div id="contenido" class="container flex flex-wrap justify-center gap-8">
+    <!-- Sección dinámica -->
 
-            <!-- Cuadro para la imagen -->
-            <div id="imagen-container" class="overflow-hidden bg-white rounded-lg shadow-lg"
-                style="width: 700px; height: 750px;">
-                <img id="imagen" src="{{ asset('imagenes/1731294409_evento2xd.jpeg') }}" alt="Imagen"
-                    class="object-cover w-full h-full">
+
+
+
+
+    <div class="flex-1">
+
+        <div class="full-box page-header">
+            <div class="flex justify-center mb-6 space-x-8 border-b">
+                <button onclick="mostrarSeccion(0)"
+                    class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Psicología</button>
+                <button onclick="mostrarSeccion(1)"
+                    class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Centro
+                    Médico</button>
+                <button onclick="mostrarSeccion(2)"
+                    class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Capellanía</button>
+                <button onclick="mostrarSeccion(3)"
+                    class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Atención
+                    Médica</button>
+                <button onclick="mostrarSeccion(4)"
+                    class="pb-2 text-lg font-bold text-gray-600 tab-button hover:text-blue-700 focus:text-blue-700">Sostenibilidad
+                    Ambiental</button>
             </div>
+            <div class="container-fluid">
+                <div class="row">
 
-            <!-- Cuadro para el contenido de texto -->
-            <div id="texto-container" class="flex flex-col justify-start p-8 bg-white rounded-lg shadow-lg"
-                style="width: 700px;">
-                <div class="mb-4 text-right">
-                    <a id="boton" href="{{ route('crear-citas') }}"
-                        class="inline-block px-10 py-4 text-xl font-bold text-white bg-green-700 rounded hover:bg-green-800">
-                        Agendar consulta
-                    </a>
-                </div>
-                <div id="texto">
+                    <!-- Columna 1: Imagen del Evento -->
+                    <div class="col-12 col-md-6">
 
+                        <div class="container flex flex-col items-center gap-8 px-4 py-8 mx-auto">
+                            <!-- Botones de pestañas -->
+
+                            <div id="imagen-container" class="overflow-hidden bg-white rounded-lg shadow-lg"
+                                style="width: 700px; height: 750px;">
+                                <img id="imagen" src="{{ asset('imagenes/1731294409_evento2xd.jpeg') }}"
+                                    alt="Imagen" class="object-cover w-full h-full">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div id="contenido" class="container flex flex-wrap justify-center gap-8">
+                            <div id="texto-container"
+                                class="flex flex-col justify-start p-8 bg-white rounded-lg shadow-lg"
+                                style="width: 700px;">
+                                <div class="mb-4 text-right">
+                                    <a id="boton" href="{{ route('crear-citas') }}"
+                                        class="inline-block px-10 py-4 text-xl font-bold text-white bg-green-700 rounded hover:bg-green-800">
+                                        Agendar consulta
+                                    </a>
+                                </div>
+                                <div id="texto">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 
 
 

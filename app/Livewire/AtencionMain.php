@@ -27,32 +27,34 @@ class AtencionMain extends Component
         $this->estudiantes = Estudiante::all(); // Carga todos los estudiantes inicialmente
     }
 
-    // Actualiza la lista de estudiantes al escribir en el campo de búsqueda
     public function updatedSearch()
-    {
-        if (strlen($this->search) > 2 && !$this->IdEstudiante) {
-            $this->estudiantes = Estudiante::where('nombre', 'like', '%' . $this->search . '%')
-                ->orWhere('apellidoPaterno', 'like', '%' . $this->search . '%')
-                ->orWhere('apellidoMaterno', 'like', '%' . $this->search . '%')
-                ->limit(10)  // Limita los resultados para mejorar la eficiencia
-                ->get();
-        } else {
-            $this->estudiantes = collect(); // Limpia los resultados cuando no se busca o ya se seleccionó un estudiante
-        }
+{
+    if (strlen($this->search) > 2) {
+        // Búsqueda de estudiantes por nombre, apellidoPaterno y apellidoMaterno
+        $this->estudiantes = Estudiante::where('nombre', 'like', '%' . $this->search . '%')
+            ->orWhere('apellidoPaterno', 'like', '%' . $this->search . '%')
+            ->orWhere('apellidoMaterno', 'like', '%' . $this->search . '%')
+            ->limit(10)  // Limitar los resultados a 10 para mejorar la eficiencia
+            ->get();
+    } else {
+        $this->estudiantes = collect();  // Limpiar resultados si la búsqueda es demasiado corta
     }
+}
 
-    // Selecciona un estudiante de la lista
-    public function selectEstudiante($estudianteId)
-    {
-        $estudiante = Estudiante::find($estudianteId); // Encuentra al estudiante seleccionado
-        $this->IdEstudiante = $estudiante->id;
-        $this->search = $estudiante->nombre . ' ' . $estudiante->apellidoPaterno . ' ' . $estudiante->apellidoMaterno; // Actualiza el campo de búsqueda
-        $this->estudiantes = []; // Limpia la lista de búsqueda
-    }
+
+
+public function selectEstudiante($estudianteId)
+{
+    $estudiante = Estudiante::find($estudianteId); // Encuentra al estudiante seleccionado
+    $this->IdEstudiante = $estudiante->id;
+    $this->search = $estudiante->nombre . ' ' . $estudiante->apellidoPaterno . ' ' . $estudiante->apellidoMaterno; // Actualiza el campo de búsqueda
+    $this->estudiantes = []; // Limpia la lista de búsqueda
+}
+
 
     public function store()
     {
-        $this->validate([
+            $this->validate([
             'IdEstudiante' => 'required|exists:estudiantes,id',
             'motivo' => 'required|string|max:322',
             'tipo' => 'required|string|max:100',
@@ -67,7 +69,6 @@ class AtencionMain extends Component
         $descripcion_motivo = $this->descripcion_motivo ?? 'N/A';
         $otros_datos = $this->otros_datos ?? 'N/A';
 
-        // Crear una nueva atención
         $atencion = Atenciones::create([
             'motivoAtencion' => $this->motivo,
             'tipo' => $this->tipo,
@@ -88,21 +89,47 @@ class AtencionMain extends Component
 
         // Limpiar los campos del formulario
         $this->reset([
-            'IdEstudiante', 'motivo', 'tipo', 'responsable', 'fecha_atencion', 'descripcion_motivo', 'otros_datos'
+            'IdEstudiante', 'motivo', 'tipo', 'responsable', 'fecha_atencion', 'descripcion_motivo', 'observaciones', 'otros_datos', 'search'
         ]);
     }
 
-    // Función para actualizar el historial del estudiante
-    public function updateHistorial(Atenciones $atencion)
-    {
-        $historial = Historial::updateOrCreate(
-            ['idEstudiante' => $atencion->idEstudiante],
-            ['idAtencion' => $atencion->id]
-        );
+    private function getCitaId()
+{
+      $cita = Cita::firstOrCreate([
+        'idEstudiante' => $this->IdEstudiante,
+        'fecha' => now(),  // Aquí podrías agregar la lógica que necesites para obtener o crear una cita
+    ]);
+
+    return $cita->id ?? null;  // Devuelve el ID de la cita o null si no existe
+}
+
+
+    private function updateHistorial($atencion)
+{
+    // Obtener o crear un historial para el estudiante
+    $historial = Historial::where('idEstudiante', $atencion->idEstudiante)->first();
+
+    // Si no existe un historial, lo creamos
+    if (!$historial) {
+        // Asignamos null a idCita si no se requiere una cita
+        $idCita = null;
+
+        $historial = new Historial();
+        $historial->idEstudiante = $atencion->idEstudiante;
+        $historial->idAtencion = $atencion->id;  // Vinculamos la atención recién creada
+        $historial->idCita = $idCita;  // Asignamos null si no hay una cita
+    } else {
+        // Si ya existe un historial, solo agregamos la nueva atención
+        $historial->idAtencion = $atencion->id;
     }
+
+    // Guardamos el historial actualizado
+    $historial->save();
+}
+
+
 
     public function render()
     {
-        return view('atencion-create');
-    }
+     return view('atencion-create');}
 }

@@ -8,7 +8,7 @@
                 <!-- Calendario -->
                 <div class="w-1/2">
                     <h3 class="mb-6 text-xl font-bold">Seleccionar Fecha</h3>
-                    <div id="calendar" class="p-6 bg-gray-100 rounded-lg shadow"></div>
+                    <div id="calendar" class="p-6 bg-gray-100 rounded-lg shadow bg-transparent"></div>
                     <input type="hidden" id="fecha" name="fecha">
                 </div>
 
@@ -20,7 +20,8 @@
                         <div class="flex items-center space-x-6">
                             <div class="w-1/2">
                                 <label for="codigo" class="block mb-2 font-medium">Código</label>
-                                <input type="text" id="codigo" class="w-full px-3 py-2 border-gray-300 rounded"
+                                <input type="text" id="codigo"
+                                    class="w-full px-3 py-2 border-gray-300 rounded bg-transparent"
                                     placeholder="Ingrese código del estudiante" required>
                             </div>
                             <button type="button" id="buscar"
@@ -30,7 +31,7 @@
                         </div>
 
                         <!-- Mostrar información del estudiante -->
-                        <div class="flex mt-6 space-x-6">
+                        <div class="flex mt-6 space-x-6 bg-transparent">
                             <input type="text" id="nombres" placeholder="Nombres" readonly
                                 class="w-1/3 px-3 py-2 bg-gray-100 rounded">
                             <input type="text" id="apellidos" placeholder="Apellidos" readonly
@@ -220,7 +221,7 @@
                     const recordatorio = await response.json();
                     mensajes.push(
                         `Recordatorio:\nNombre: ${recordatorio.nombre}\nFecha: ${recordatorio.fecha}\nHora: ${recordatorio.hora}`
-                        );
+                    );
                     colores.push('bg-green-400');
                 }
             } catch (error) {

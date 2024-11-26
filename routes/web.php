@@ -182,11 +182,5 @@ Route::get('/cita/{id}', CitaDetalle::class)->name('cita.detalle');
 
 
 
-Route::get('/Solicitudes', SolicitudMain::class)->name('Solicitudes');
-Route::get('/estudiantes', [EstudianteController::class, 'index']);
-Route::get('/becas', BecaSeleccion::class)->name('beca.seleccion');
-Route::get('/becasali', BecaAlimento::class)->name('beca.alimento');
-Route::get('/gestion', GestionSolicitud::class)->name('gestion.solicitud');
-
 
 });

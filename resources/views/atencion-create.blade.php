@@ -1,4 +1,5 @@
-<div> <!-- Mensaje de éxito -->
+<div>
+    <!-- Mensaje de éxito -->
     @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session('message') }}
@@ -9,13 +10,14 @@
     <div class="max-w-2xl p-6 mx-auto bg-white rounded-lg shadow-lg">
         <form wire:submit.prevent="store">
             <!-- Estudiante -->
-            <div class="relative mb-6">
-                <label for="IdEstudiante" class="block text-sm font-semibold text-gray-700">Estudiante</label>
+            <div class="relative">
+                <!-- Campo de búsqueda -->
                 <input type="text" wire:model.debounce.500ms="search"
                     class="block w-full p-3 mt-2 border border-gray-300 rounded-md form-input"
-                    placeholder="Buscar historial por nombre..." />
+                    placeholder="Buscar historial por nombre...">
 
-                @if (strlen($search) > 2 && !$IdEstudiante)
+                <!-- Resultados de búsqueda -->
+                @if (strlen($search) > 2)
                     @if ($estudiantes->isNotEmpty())
                         <ul class="absolute z-10 w-full mt-2 overflow-y-auto bg-white rounded-lg shadow-md max-h-48">
                             @foreach ($estudiantes as $estudiante)
@@ -29,10 +31,6 @@
                         <p class="mt-2 text-sm text-gray-500">No se encontraron resultados.</p>
                     @endif
                 @endif
-
-                @error('IdEstudiante')
-                    <span class="text-sm text-red-500">{{ $message }}</span>
-                @enderror
             </div>
 
             <!-- Motivo de Atención (Requerido) -->
@@ -70,14 +68,14 @@
 
             <!-- Fecha de Atención (Requerido) -->
             <div class="mb-6">
-                <label for="fecha_atencion" class="block text-sm font-semibold text-gray-700">Fecha de
-                    Atención</label>
+                <label for="fecha_atencion" class="block text-sm font-semibold text-gray-700">Fecha de Atención</label>
                 <input wire:model="fecha_atencion" type="date" id="fecha_atencion"
                     class="block w-full p-3 mt-2 border border-gray-300 rounded-md" required>
                 @error('fecha_atencion')
                     <span class="text-sm text-red-500">{{ $message }}</span>
                 @enderror
             </div>
+
 
             <!-- Descripción Motivo (Opcional) -->
             <div class="mb-6">
