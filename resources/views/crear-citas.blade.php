@@ -13,69 +13,91 @@
                 </div>
 
                 <!-- Formulario -->
-                <div class="w-1/2 p-8 bg-white rounded-lg shadow">
-                    <h3 class="mb-6 text-xl font-bold">Ingresar datos del estudiante</h3>
-                    <form id="form-citas" class="space-y-6">
-                        <!-- Buscar estudiante por código -->
-                        <div class="flex items-center space-x-6">
-                            <div class="w-1/2">
-                                <label for="codigo" class="block mb-2 font-medium">Código</label>
-                                <input type="text" id="codigo"
-                                    class="w-full px-3 py-2 border-gray-300 rounded bg-transparent"
-                                    placeholder="Ingrese código del estudiante" required>
+                <div class="container-fluid col-5">
+                    <form>
+                        @csrf <!-- Protección CSRF -->
+                        <fieldset>
+                            <legend><i class="far fa-address-card"></i> &nbsp; Información de la cita</legend>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <!-- Buscar estudiante por código -->
+                                    <div class="col-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="codigo" class="bmd-label-floating">Código</label>
+                                            <input type="text" name="codigo" id="codigo" class="form-control"
+                                                required>
+                                        </div>
+
+                                    </div>
+                                    <button type="button" id="buscar" class="btn btn-primary btn-sm">
+                                        Buscar estudiante
+                                    </button>
+
+                                    <div class="col-12 mb-3">
+                                        <div class="form-group">
+                                            <label for="nombres" class="bmd-label-floating">Nombres</label>
+                                            <input type="text" id="nombres" class="form-control bg-transparent"
+                                                readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apellidos" class="bmd-label-floating">Apellidos</label>
+                                            <input type="text" id="apellidos" class="form-control bg-transparent"
+                                                readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="facultad" class="bmd-label-floating">Facultad</label>
+                                            <input type="text" id="facultad" class="form-control bg-transparent"
+                                                readonly>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hora -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-group">
+                                            <label for="hora" class="bmd-label-floating">Hora</label>
+                                            <input type="text" name="hora" id="hora"
+                                                class="form-control bg-transparent"
+                                                placeholder="Ingrese la hora de la cita" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Área -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-group">
+                                            <label for="area" class="bmd-label-floating">Área</label>
+                                            <select name="area" id="area" class="form-control" required>
+                                                <option value="" disabled selected>Seleccione un área</option>
+                                                <option value="Psicologia">Psicología</option>
+                                                <option value="Centro Medico">Centro Médico</option>
+                                                <option value="Capellania">Capellanía</option>
+                                                <option value="Atencion Medica">Atención Médica</option>
+                                                <option value="Sostenibilidad Ambiental">Sostenibilidad Ambiental
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Motivo -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-group">
+                                            <label for="motivo" class="bmd-label-floating">Motivo (opcional)</label>
+                                            <textarea name="motivo" id="motivo" class="form-control" placeholder="Ingrese el motivo (opcional)"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botón Agendar -->
+                                    <div class="mt-8">
+                                        <button type="button" id="agendar"
+                                            class="w-full px-6 py-3 text-white bg-green-600 rounded hover:bg-green-700">
+                                            Agendar
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <button type="button" id="buscar"
-                                class="h-10 px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
-                                Buscar
-                            </button>
-                        </div>
-
-                        <!-- Mostrar información del estudiante -->
-                        <div class="flex mt-6 space-x-6 bg-transparent">
-                            <input type="text" id="nombres" placeholder="Nombres" readonly
-                                class="w-1/3 px-3 py-2 bg-gray-100 rounded">
-                            <input type="text" id="apellidos" placeholder="Apellidos" readonly
-                                class="w-1/3 px-3 py-2 bg-gray-100 rounded">
-                            <input type="text" id="facultad" placeholder="Facultad" readonly
-                                class="w-1/3 px-3 py-2 bg-gray-100 rounded">
-                        </div>
-
-                        <!-- Seleccionar hora -->
-                        <div>
-                            <label for="hora" class="block mb-2 font-medium">Hora</label>
-                            <input type="text" id="hora" class="w-full px-3 py-2 border-gray-300 rounded"
-                                placeholder="Seleccione una hora" required>
-                        </div>
-
-                        <!-- Seleccionar área -->
-                        <div>
-                            <label for="area" class="block mb-2 font-medium">Área</label>
-                            <select id="area" class="w-full px-3 py-2 border-gray-300 rounded" required>
-                                <option value="" disabled selected>Seleccione un área</option>
-                                <option value="Psicologia">Psicologia</option>
-                                <option value="Centro Medico">Centro Medico</option>
-                                <option value="Capellania">Capellania</option>
-                                <option value="Atencion Medica">Atención Medica</option>
-                                <option value="Sostenibilidad Ambiental">Sostenibilidad Ambiental</option>
-                            </select>
-                        </div>
-
-                        <!-- Motivo -->
-                        <div>
-                            <label for="motivo" class="block mb-2 font-medium">Motivo (opcional)</label>
-                            <textarea id="motivo" rows="4" class="w-full px-3 py-2 border-gray-300 rounded"
-                                placeholder="Ingrese el motivo (opcional)"></textarea>
-                        </div>
-
-                        <!-- Botón Agendar -->
-                        <div class="mt-8">
-                            <button type="button" id="agendar"
-                                class="w-full px-6 py-3 text-white bg-green-600 rounded hover:bg-green-700">
-                                Agendar
-                            </button>
-                        </div>
+                        </fieldset>
                     </form>
                 </div>
+
             </div>
 
             <!-- Mascota -->

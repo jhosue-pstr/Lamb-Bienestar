@@ -40,10 +40,10 @@
                                 <!-- Nombre del Evento: -->
                                 <div class="mb-4 form-group">
                                     <label for="eventName"
-                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700 "
                                         style="font-size: 1.25rem;">Nombre del evento:</label>
                                     <select id="eventName" name="eventName" data-selected="{{ $evento->id ?? '' }}"
-                                        class="form-control block w-full mt-1 rounded-md" disabled
+                                        class="form-control bg-transparent block w-full mt-1 rounded-md" disabled
                                         onchange="fillEventDetails()">
                                         <option value="">Seleccione...</option>
                                     </select>

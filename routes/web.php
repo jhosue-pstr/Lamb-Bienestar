@@ -13,6 +13,7 @@ use App\Livewire\AtencionMain;
 use App\Livewire\Beca\BecaAlimento;
 use App\Livewire\Beca\BecaSeleccion;
 use App\Livewire\CitaDetalle;
+use App\Livewire\EditarCita;
 use App\Livewire\EstudianteMain;
 use App\Livewire\HistorialMain;
 use App\Livewire\Solicitud\GestionSolicitud;
@@ -181,6 +182,6 @@ Route::get('/cita/{id}', CitaDetalle::class)->name('cita.detalle');
 
 
 
-
+Route::get('/editarCita' ,EditarCita::class)->name('editarCita');
 
 });
