@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Documentos;
+use App\Models\LugarNacimiento;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DocumentoSeeder extends Seeder
+class LugarNacimientoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Documentos::factory()->count(10)->create();
+        LugarNacimiento::factory()->count(50)->create();
     }
 }

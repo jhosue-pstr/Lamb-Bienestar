@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Documentos;
+use App\Models\VerificacionRequisito;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DocumentoSeeder extends Seeder
+class VerificacionRequisitoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Documentos::factory()->count(10)->create();
+        VerificacionRequisito::factory()->count(10)->create();
     }
 }

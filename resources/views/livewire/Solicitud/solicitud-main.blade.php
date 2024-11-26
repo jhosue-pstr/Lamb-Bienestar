@@ -1,75 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Solicitudes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800">
-
-    <div class="container mx-auto px-4 py-6">
-        <!-- Título y subtítulo -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-            <div>
-                <h1 class="text-2xl font-bold mb-2">Mis solicitudes de Chequeo Medico, Alimentacion y Becas</h1>
-                <p class="text-sm text-gray-600">Seguimiento de solicitudes</p>
-            </div>
-        </div>
-
-        <!-- Filtros -->
-        <div class="flex flex-wrap items-center gap-4 my-6">
-            <select class="flex-grow bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-800">
-                <option value="2024-2">Regular 2024-2</option>
-            </select>
-            <select class="flex-grow bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-800">
-                <option value="">Seleccione programa</option>
-            </select>
-            <select class="flex-grow bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-800">
-                <option value="">Seleccione estado</option>
-            </select>
-            <button class="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600">BUSCAR</button>
-            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">CREAR SOLICITUD</button>
-        </div>
-
-        <!-- Tabla -->
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <table class="min-w-full bg-white">
-                <thead class="bg-green-400 text-gray-800">
-                    <tr>
-                        <th class="py-1 px-4 text-left">#</th>
-                        <th class="py-1 px-4 text-left">Beca / Descuento</th>
-                        <th class="py-1 px-4 text-left">Fecha de registro</th>
-                        <th class="py-1 px-4 text-left">Semestre</th>
-                        <th class="py-1 px-4 text-left">Plan</th>
-                        <th class="py-1 px-4 text-left">Plan programa</th>
-                        <th class="py-1 px-4 text-left">Estado</th>
-                        <th class="py-1 px-4 text-center">Visualizar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="py-3 px-4">1</td>
-                        <td class="py-3 px-4">Descuento por Asociado de la Promotora</td>
-                        <td class="py-3 px-4">12/08/24</td>
-                        <td class="py-3 px-4">Regular 2024-2</td>
-                        <td class="py-3 px-4">2023-1</td>
-                        <td class="py-3 px-4">Ingeniería de Sistemas, Presencial</td>
-                        <td class="py-3 px-4">
-                            <span class="text-green-600 font-bold">&#10003;</span>
-                        </td>
-                        <td class="py-3 px-4 text-center">
-                            <button class="text-blue-500 hover:text-blue-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9m4 0H9" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="min-h-screen bg-gray-100 py-10">
+  <!-- Contenedor para el saludo y la barra -->
+<div class="container mx-auto text-center py-10">
+    <!-- Barra de progreso con efecto de corriente -->
+    <div class="relative mb-6">
+        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+            <div id="progress-bar" class="bg-blue-500 h-2 rounded-full"></div>
         </div>
     </div>
 
-</body>
-</html>
+    <!-- Saludo estático -->
+    <h1 id="greeting" class="text-3xl font-bold text-gray-800">¡Bienvenido, Estudiante!
+       Mis solicitudes
+    </h1>
+</div>
+
+<!-- Librería Lottie para efectos adicionales -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+
+<script>
+    // Barra de progreso con corriente eléctrica
+    let progress = 0;
+    const progressBar = document.getElementById('progress-bar');
+    let electricEffect = false;
+
+    function animateProgressBar() {
+        if (progress < 100) {
+            progress += 1;
+            progressBar.style.width = progress + '%';
+            if (electricEffect) {
+                progressBar.style.background = 'linear-gradient(to right, #00f0ff, #ff00ff, #00f0ff)';
+                progressBar.style.animation = 'electricCurrent 1s linear infinite';
+            }
+            setTimeout(animateProgressBar, 50);
+        }
+    }
+
+    // Barra de progreso animada y destellos
+    window.onload = () => {
+        animateProgressBar(); // Iniciar barra de progreso
+
+        // Agregar destellos de felicidad al título
+        setTimeout(() => {
+            const greeting = document.getElementById('greeting');
+            greeting.classList.add('text-yellow-600', 'animate-pulse'); // Destellos de felicidad
+            electricEffect = true; // Activar efecto eléctrico en la barra
+        }, 1000);
+    };
+</script>
+
+
+
+
+
+    <div class="container mx-auto px-6 py-8 bg-white rounded-lg shadow-xl">
+        @if (session()->has('message'))
+            <div class="bg-green-100 text-green-800 px-4 py-2 rounded-md mb-4">
+                {{ session('message') }}
+            </div>
+        @endif
+
+        <!-- Filtros y Botones -->
+        <div class="flex items-center justify-between mb-6">
+            <!-- Filtros -->
+            <div class="flex flex-wrap gap-4 w-full sm:w-auto items-center">
+                <!-- Selector de semestre -->
+                <div class="w-full sm:w-auto" style="min-width: 200px;">
+                    <label for="semestre" class="block text-sm font-medium text-gray-800">
+                        Semestre
+                        <i class="fas fa-layer-group ml-2 text-red-500"></i>
+                    </label>
+                    <select id="semestre" wire:model="semestre"
+                        class="mt-1 px-4 py-3 min-w-60 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-sm transition ease-in-out duration-200 appearance-none overflow-hidden text-ellipsis">
+                        <option value="">Seleccionar</option>
+                        <option value="Regular 2024-2">Regular 2024-2</option>
+                    </select>
+                </div>
+
+                <!-- Selector de programa -->
+                <div class="w-full sm:w-auto" style="min-width: 220px;">
+                    <label for="programa" class="block text-sm font-medium text-gray-800">
+                        PLan
+                        <i class="fas fa-graduation-cap ml-2 text-teal-500"></i>
+                    </label>
+                    <select id="plan" wire:model="plan"
+                        class="mt-1 px-4 py-3 min-w-72 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-sm transition ease-in-out duration-200 appearance-none overflow-hidden text-ellipsis">
+                        <option value="">Seleccionar</option>
+                        <option value="EP Ingeniería de Sistemas">EP Ingeniería de Sistemas</option>
+                    </select>
+                </div>
+
+                <!-- Selector de estado personalizado -->
+                <div class="w-full sm:w-auto" x-data="{ open: false, selected: '', options: [
+                        { value: 'pendiente', label: 'Pendiente', icon: 'fas fa-clock text-yellow-500' },
+                        { value: 'aprobado', label: 'Aprobado', icon: 'fas fa-check-circle text-green-500' },
+                        { value: 'rechazado', label: 'Rechazado', icon: 'fas fa-times-circle text-red-500' }
+                    ] }" style="min-width: 220px;" x-init="$watch('selected', value => $wire.set('estado', value?.value))">
+                    <label for="estado" class="block text-sm font-medium text-gray-800 mb-2">
+                        Estado
+                        <i class="fas fa-cogs ml-2 text-blue-500"></i>
+                    </label>
+                    <div class="relative">
+                        <!-- Select Personalizado -->
+                        <div @click="open = !open"
+                            class="flex justify-between items-center px-4 py-3 border border-gray-300 rounded-lg bg-white shadow-sm cursor-pointer">
+                            <div class="flex items-center">
+                                <template x-if="selected">
+                                    <i :class="selected.icon" class="mr-2"></i>
+                                </template>
+                                <span x-text="selected ? selected.label : 'Seleccionar'" class="text-gray-800"></span>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-500"></i>
+                        </div>
+
+                        <!-- Opciones -->
+                        <div x-show="open" @click.outside="open = false"
+                            class="absolute bg-white border border-gray-300 rounded-lg shadow-lg mt-1 w-full z-10">
+                            <template x-for="option in options" :key="option.value">
+                                <div @click="selected = option; open = false"
+                                    class="flex items-center px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                                    <i :class="option.icon" class="mr-3"></i>
+                                    <span x-text="option.label"></span>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Input Oculto -->
+                        <input type="hidden" x-bind:value="selected.value" id="selected-value" name="estado" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex gap-4 items-center">
+                <button wire:click="aplicarFiltros" class="mt-5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-lg shadow-md hover:scale-105 transform transition ease-in-out duration-200">
+                    Buscar
+                </button>
+                <button wire:click="toggleCreateForm"
+                    class="mt-5 bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:scale-105 transform transition ease-in-out duration-200">
+                    Crear Solicitud
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-blue-500 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">#</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Tipo de beca</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Fecha de Registro</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Semestre</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Plan</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Plan Progrma</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Estado</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold uppercase">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white-100 divide-y divide-gray-200">
+                    @foreach ($solicitudes as $solicitud)
+                        <tr class="hover:bg-gray-100 transition">
+                            <td class="px-6 py-4">{{ $solicitud->id }}</td>
+                            <td class="font-semibold text-red-550 px-6 py-4">{{ $solicitud->tipo }}</td>
+                            <td class="semibold text-red-500 px-6 py-4">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                {{ $solicitud->created_at->format('Y-m-d') }}
+                            </td>
+                            <td class="px-6 py-4">{{ $solicitud->semestre }}</td>
+                            <td class="px-6 py-4">{{ $solicitud->Plan }}</td>
+                            <td class="px-6 py-4">{{ $solicitud->plan_programa }}</td>
+                            <td class="px-6 py-4 flex items-center">
+                                @php
+                                    $estado = strtolower(trim($solicitud->estado));
+                                @endphp
+                                @if ($estado === 'pendiente')
+                                    <i class="fas fa-clock text-yellow-500 mr-2"></i>
+                                @elseif ($estado === 'aprobado')
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                @elseif ($estado === 'rechazado')
+                                    <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                                @else
+                                    <i class="fas fa-question-circle text-gray-500 mr-2"></i>
+                                @endif
+                                {{ ucfirst($estado) }}
+                            </td>
+
+                            <td class="px-6 py-4">
+                                <div class="flex justify-center items-center">
+                                    <button wire:click="redirectToGestion({{ $solicitud->id }})"
+                                        class="text-orange-500 hover:text-orange-700 transition">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        @if ($showCreateForm)
+            @include('livewire.solicitud.solicitud-create')
+        @endif
+    </div>
+</div>

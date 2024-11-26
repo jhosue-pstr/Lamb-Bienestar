@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoRequisito extends Model
+class tipo_requisitos extends Model
 {
     use HasFactory;
 
@@ -26,4 +26,10 @@ class TipoRequisito extends Model
     {
         return $this->belongsTo(FichaSocioEconomica::class, 'idFichaSocioEconomica');
     }
+    public function becas()
+    {
+        return $this->belongsToMany(TipoBeca::class, 'beca_requisito', 'requisito_id', 'beca_id');
+    }
+
+
 }
