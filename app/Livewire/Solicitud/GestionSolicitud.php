@@ -35,22 +35,24 @@ class GestionSolicitud extends Component
     }
 
 
-
     public function uploadPDF($requisito_id)
     {
-        // Validar que el archivo sea PDF y que no exceda 10MB
         $this->validate([
-            'pdf_requisito' => 'mimes:pdf|max:10240', // Max 10MB
+            'archivos.' . $requisito_id => 'required|mimes:pdf|max:10240', // Validar PDF y tamaño máximo
         ]);
 
-        // Almacenar el archivo
-        $pdfPath = $this->pdf_requisito->store('pdf_requisitos');
+        // Almacenar el archivo en la carpeta `public/pdf_requisitos`
+        $filePath = $this->archivos[$requisito_id]->store('public/pdf_requisitos');
 
-        // Asignar el archivo al requisito correspondiente
+        // Actualizar el registro en la base de datos
         $requisito = TipoRequisito::find($requisito_id);
-        $requisito->pdf_requisito = $pdfPath;
+        $requisito->pdf_requisito = $filePath;
         $requisito->save();
+
+        // Mostrar mensaje de éxito
+        session()->flash('success', 'Archivo subido correctamente.');
     }
+
 
     public function showDescription($requisito_id)
 {
@@ -61,6 +63,19 @@ class GestionSolicitud extends Component
     }
 
     return abort(404, 'Archivo no encontrado');
+}
+
+
+
+public function showPDF($id)
+{
+    $requisito = TipoRequisito::find($id);
+
+    if ($requisito && $requisito->pdf_requisito) {
+        return response()->file(storage_path('app/' . $requisito->pdf_requisito));
+    }
+
+    abort(404, 'El archivo PDF no se encontró.');
 }
 
 

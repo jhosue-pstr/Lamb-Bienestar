@@ -100,14 +100,14 @@ class SolicitudMain extends Component
             }
 
             public function redirectToGestion($id)
-            {
-                if ($id) {
-                    return redirect()->route('gestion.solicitud', ['id' => $id]);
-                } else {
-                    session()->flash('error', 'No se proporcionó un ID válido para la redirección.');
-                    return back();
-                }
-            }
+{
+    $solicitud = Solicitud::findOrFail($id); // Asegúrate de que el modelo exista
+    $tipoBeca = $solicitud->tipo; // Obtén el tipo de beca de la solicitud
+
+    // Redirige al componente con el parámetro tipoBeca
+    return redirect()->to(route('gestion.solicitud', ['tipoBeca' => $tipoBeca]));
+}
+
 
 
 

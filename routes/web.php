@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\PDFController;
 use App\Livewire\Admin\RoleMain;
 use App\Livewire\Beca\BecaAlimento;
 use App\Livewire\Beca\BecaSeleccion;
@@ -33,6 +34,8 @@ Route::middleware([
     Route::get('/beca-general', BecaSeleccion::class)->name('livewire.becas.beca-seleccion');
     Route::get('/beca-alimento', BecaAlimento::class)->name('livewire.becas.beca-alimento');
     Route::get('/gestion/{tipoBeca}', GestionSolicitud::class)->name('gestion.solicitud');
+
+    Route::get('/requisito/pdf/{id}', [PDFController::class, 'show'])->name('requisito.pdf');
 
 
 
