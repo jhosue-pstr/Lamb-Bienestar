@@ -9,9 +9,9 @@
     </div>
 
     <!-- Saludo estático -->
-    <h1 id="greeting" class="text-3xl font-bold text-gray-800">¡Bienvenido, Estudiante!
-       Mis solicitudes
-    </h1>
+    <h1 id="greeting" class="text-3xl font-bold text-gray-800">¡Bienvenido, Dan!
+        <p>  Tus solicitudes</p>
+        </h1>
 </div>
 
 <!-- Librería Lottie para efectos adicionales -->

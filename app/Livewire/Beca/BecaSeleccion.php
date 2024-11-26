@@ -20,11 +20,9 @@ class BecaSeleccion extends Component
                     'Haber egresado del nivel secundario con mínimo 3 años en institución de la promotora.',
                     'Ser estudiante regular de la UPeU.',
                     'Promedio ponderado mínimo de 14 y 100% de créditos aprobados.',
-                    'No haber sido sancionado.',
-                    'No adeudar a la UPeU.',
                     'Ficha socioeconómica.',
                 ],
-                'icono' => 'https://example.com/icons/convenio-icon.png',
+                'icono' => asset('Imagenes/Beca/beca_Convenio.png'), // Palabra clave "education"
             ],
             [
                 'nombre' => 'Beca al Deportista Destacado',
@@ -35,11 +33,9 @@ class BecaSeleccion extends Component
                     'Constancia de calificación como "Deportista de Alto Nivel".',
                     'Ser estudiante regular en el semestre académico.',
                     'Promedio ponderado mínimo de 14 y 100% de créditos aprobados.',
-                    'No haber sido sancionado.',
-                    'No adeudar a la UPeU.',
                     'Ficha socioeconómica.',
                 ],
-                'icono' => 'https://example.com/icons/deportista-icon.png',
+                'icono' =>  asset('Imagenes/Beca/Deporte.png'),
             ],
             [
                 'nombre' => 'Beca Socioeconómica (BECA CREAF)',
@@ -48,45 +44,49 @@ class BecaSeleccion extends Component
                     'Solicitud dirigida a la Comisión de Becas.',
                     'Ser estudiante regular en el semestre académico.',
                     'Promedio ponderado mínimo de 14 y 100% de créditos aprobados.',
-                    'No haber sido sancionado.',
-                    'No adeudar a la UPeU.',
                     'Estar apto para cursar el tercer ciclo.',
                     'Ficha socioeconómica.',
                     'Documentos adicionales según evaluación de Asistencia Social.',
                 ],
-                'icono' => 'https://example.com/icons/socioeconomica-icon.png',
+                'icono' =>  asset('Imagenes/Beca/socio.jpg  '),
             ],
             [
                 'nombre' => 'Beca Discapacidad',
                 'descripcion' => 'Apoyo para estudiantes con discapacidad certificada.',
                 'requisitos' => [
-                    'Solicitud dirigida a la Comisión de Becas.',
                     'Certificado de discapacidad emitido por el Ministerio de Salud o carnet CONADIS.',
                     'Ser estudiante regular en el semestre académico.',
                     'Promedio ponderado mínimo de 14 y 100% de créditos aprobados.',
                     'No haber sido sancionado.',
-                    'No adeudar a la UPeU.',
                     'Ficha socioeconómica.',
-                    'Documentos adicionales requeridos por Asistencia Social.',
                 ],
-                'icono' => 'https://example.com/icons/discapacidad-icon.png',
+                'icono' =>  asset('Imagenes/Beca/inclusion.jpg  '),
             ],
             [
                 'nombre' => 'Beca Primer Puesto en el Examen de Admisión',
                 'descripcion' => 'Reconocimiento a estudiantes que ocupan el primer puesto en el cómputo general del examen de admisión.',
                 'requisitos' => [
                     'Oficio que acredite el primer lugar en el cómputo general del proceso de admisión.',
-                    'Solicitud dirigida a la Comisión de Becas.',
                     'Ficha socioeconómica.',
                     'Constancia de no haber recibido sanciones disciplinarias.',
-                    'Constancia de no adeudar a la UPeU.',
                     'Promedio ponderado mínimo de 14 y 100% de créditos aprobados.',
                 ],
-                'icono' => 'https://example.com/icons/admission-icon.png',
+                'icono' =>  asset('Imagenes/Beca/primer.jpg  '),
             ],
 
         ];
     }
+
+    public function seleccionarBeca($tipoBeca)
+{
+    // Encuentra la beca seleccionada
+    $becaSeleccionada = collect($this->becas)->firstWhere('nombre', $tipoBeca);
+
+    // Redirige a la ruta con los datos de la beca
+    session()->put('becaSeleccionada', $becaSeleccionada);
+    return redirect()->route('gestion.solicitud', ['tipoBeca' => strtolower(str_replace(' ', '_', $tipoBeca))]);
+}
+
     public function render()
     {
         return view('livewire.becas.beca-seleccion');

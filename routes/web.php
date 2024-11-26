@@ -32,6 +32,7 @@ Route::middleware([
     Route::get('/gestion', GestionSolicitud::class)->name('gestion.solicitud');
     Route::get('/beca-general', BecaSeleccion::class)->name('livewire.becas.beca-seleccion');
     Route::get('/beca-alimento', BecaAlimento::class)->name('livewire.becas.beca-alimento');
+    Route::get('/gestion/{tipoBeca}', GestionSolicitud::class)->name('gestion.solicitud');
 
 
 
