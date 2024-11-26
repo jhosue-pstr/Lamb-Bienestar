@@ -52,7 +52,7 @@ class AtencionMain extends Component
 
     public function store()
     {
-            $this->validate([
+        $this->validate([
             'IdEstudiante' => 'required|exists:estudiantes,id',
             'motivo' => 'required|string|max:322',
             'tipo' => 'required|string|max:100',
@@ -67,6 +67,7 @@ class AtencionMain extends Component
         $descripcion_motivo = $this->descripcion_motivo ?? 'N/A';
         $otros_datos = $this->otros_datos ?? 'N/A';
 
+        // Crear una nueva atención
         $atencion = Atenciones::create([
             'motivoAtencion' => $this->motivo,
             'tipo' => $this->tipo,
@@ -87,47 +88,21 @@ class AtencionMain extends Component
 
         // Limpiar los campos del formulario
         $this->reset([
-            'IdEstudiante', 'motivo', 'tipo', 'responsable', 'fecha_atencion', 'descripcion_motivo', 'observaciones', 'otros_datos', 'search'
+            'IdEstudiante', 'motivo', 'tipo', 'responsable', 'fecha_atencion', 'descripcion_motivo', 'otros_datos'
         ]);
     }
 
-    private function getCitaId()
-{
-      $cita = Cita::firstOrCreate([
-        'idEstudiante' => $this->IdEstudiante,
-        'fecha' => now(),  // Aquí podrías agregar la lógica que necesites para obtener o crear una cita
-    ]);
-
-    return $cita->id ?? null;  // Devuelve el ID de la cita o null si no existe
-}
-
-
-    private function updateHistorial($atencion)
-{
-    // Obtener o crear un historial para el estudiante
-    $historial = Historial::where('idEstudiante', $atencion->idEstudiante)->first();
-
-    // Si no existe un historial, lo creamos
-    if (!$historial) {
-        // Asignamos null a idCita si no se requiere una cita
-        $idCita = null;
-
-        $historial = new Historial();
-        $historial->idEstudiante = $atencion->idEstudiante;
-        $historial->idAtencion = $atencion->id;  // Vinculamos la atención recién creada
-        $historial->idCita = $idCita;  // Asignamos null si no hay una cita
-    } else {
-        // Si ya existe un historial, solo agregamos la nueva atención
-        $historial->idAtencion = $atencion->id;
+    // Función para actualizar el historial del estudiante
+    public function updateHistorial(Atenciones $atencion)
+    {
+        $historial = Historial::updateOrCreate(
+            ['idEstudiante' => $atencion->idEstudiante],
+            ['idAtencion' => $atencion->id]
+        );
     }
-
-    // Guardamos el historial actualizado
-    $historial->save();
-}
-
-
 
     public function render()
     {
-        return view('atencion-create');}
+        return view('atencion-create');
+    }
 }

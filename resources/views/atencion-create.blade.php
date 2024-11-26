@@ -1,5 +1,4 @@
-<div>
-    <!-- Mensaje de éxito -->
+<div> <!-- Mensaje de éxito -->
     @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session('message') }}
@@ -71,14 +70,14 @@
 
             <!-- Fecha de Atención (Requerido) -->
             <div class="mb-6">
-                <label for="fecha_atencion" class="block text-sm font-semibold text-gray-700">Fecha de Atención</label>
+                <label for="fecha_atencion" class="block text-sm font-semibold text-gray-700">Fecha de
+                    Atención</label>
                 <input wire:model="fecha_atencion" type="date" id="fecha_atencion"
                     class="block w-full p-3 mt-2 border border-gray-300 rounded-md" required>
                 @error('fecha_atencion')
                     <span class="text-sm text-red-500">{{ $message }}</span>
                 @enderror
             </div>
-
 
             <!-- Descripción Motivo (Opcional) -->
             <div class="mb-6">

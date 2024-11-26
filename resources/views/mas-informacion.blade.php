@@ -2,84 +2,107 @@
     <!-- Contenedor Principal -->
     <div class="flex-1">
 
+        <div class="full-box page-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Columna 1: Imagen del Evento -->
+                    <div class="col-12 col-md-6">
+                        <div class="w-1/2">
+                            <div id="event-image-container" class="relative overflow-hidden rounded-lg shadow-lg"
+                                style="width: 650px; height: 750px;">
+                                <img id="event-image" src="{{ asset($evento->afiche ?? 'imagenes/default.jpeg') }}"
+                                    alt="Afiche del Evento" class="object-cover w-full h-full rounded-lg">
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="container flex px-8 py-8 space-x-8">
-            <!-- Imagen dinámica del evento -->
-            <div class="w-1/2">
-                <div id="event-image-container" class="relative overflow-hidden rounded-lg shadow-lg"
-                    style="width: 650px; height: 750px;">
-                    <img id="event-image" src="{{ asset($evento->afiche ?? 'imagenes/default.jpeg') }}"
-                        alt="Afiche del Evento" class="object-cover w-full h-full rounded-lg">
+                    <!-- Columna 2: Formulario del Evento -->
+                    <div class="col-12 col-md-6">
+                        <div class=>
+                            <form id="eventForm">
+                                <!-- Dirigido a: -->
+                                <div class="mb-4 form-group">
+                                    <label for="eventType"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        style="font-size: 1.25rem;">Dirigido a:</label>
+                                    <select id="eventType" name="eventType"
+                                        class="form-control block w-full mt-1 rounded-md" onchange="loadEventOptions()">
+                                        <option value="">Seleccione...</option>
+                                        <option value="todos" {{ $evento->tipo == 'todos' ? 'selected' : '' }}>
+                                            Evento General
+                                        </option>
+                                        <option value="carrera" {{ $evento->tipo == 'carrera' ? 'selected' : '' }}>
+                                            Evento Escuela
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Nombre del Evento: -->
+                                <div class="mb-4 form-group">
+                                    <label for="eventName"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        style="font-size: 1.25rem;">Nombre del evento:</label>
+                                    <select id="eventName" name="eventName" data-selected="{{ $evento->id ?? '' }}"
+                                        class="form-control block w-full mt-1 rounded-md" disabled
+                                        onchange="fillEventDetails()">
+                                        <option value="">Seleccione...</option>
+                                    </select>
+                                </div>
+
+                                <!-- Lugar: -->
+                                <!-- Lugar: -->
+                                <div class="mb-4 form-group">
+                                    <label for="eventLocation"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        style="font-size: 1.25rem;">Lugar:</label>
+                                    <input type="text" id="eventLocation"
+                                        class="form-control block w-full mt-1 rounded-md bg-transparent"
+                                        value="{{ $evento->ubicacion ?? '' }}" readonly>
+                                </div>
+
+
+                                <!-- Fecha: -->
+                                <div class="mb-4 form-group">
+                                    <label for="eventDate"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        style="font-size: 1.25rem;">Fecha:</label>
+                                    <input type="text" id="eventDate"
+                                        class="form-control block w-full mt-1rounded-md  bg-transparent"
+                                        value="{{ $evento->fecha ?? '' }}" readonly>
+                                </div>
+
+                                <!-- Hora: -->
+                                <div class="mb-4 form-group">
+                                    <label for="eventTime"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        style="font-size: 1.25rem;">Hora:</label>
+                                    <input type="text" id="eventTime"
+                                        class="form-control block w-full mt-1 rounded-md  bg-transparent"
+                                        value="{{ $evento->hora ?? '' }}" readonly>
+                                </div>
+
+                                <!-- Descripción: -->
+                                <div class="mb-4 form-group">
+                                    <label for="eventDescription"
+                                        class="bmd-label-floating block text-sm font-medium text-gray-700"
+                                        style="font-size: 1.25rem;">Descripción:</label>
+                                    <textarea id="eventDescription" class="form-control block w-full mt-10 rounded-md  bg-transparent" rows="3"
+                                        readonly>{{ $evento->descripcion ?? '' }}</textarea>
+                                </div>
+
+                                <!-- Botón para añadir recordatorio -->
+                                <div class="text-left">
+                                    <button type="button" onclick="addRecordatorio()"
+                                        class="px-10 py-4 text-lg font-bold text-white bg-green-700 rounded-md hover:bg-green-500">
+                                        Añadir Recordatorio
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Formulario de evento -->
-            <div class="w-[700px] h-[750px] bg-white rounded-lg shadow-lg p-6 overflow-y-auto">
-                <form id="eventForm">
-                    <!-- Selección de 'Dirigido a:' -->
-                    <div class="mb-4">
-                        <label for="eventType" class="block text-sm font-medium text-gray-700"
-                            style="font-size: 1.25rem;">Dirigido a:</label>
-                        <select id="eventType" name="eventType" class="block w-full mt-1 border-gray-300 rounded-md"
-                            onchange="loadEventOptions()">
-                            <option value="">Seleccione...</option>
-                            <option value="todos" {{ $evento->tipo == 'todos' ? 'selected' : '' }}>Evento General
-                            </option>
-                            <option value="carrera" {{ $evento->tipo == 'carrera' ? 'selected' : '' }}>Evento Escuela
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Selección de 'Nombre del evento' -->
-                    <!-- Selección de 'Nombre del evento' -->
-                    <div class="mb-4">
-                        <label for="eventName" class="block text-sm font-medium text-gray-700"
-                            style="font-size: 1.25rem;">Nombre del evento:</label>
-                        <select id="eventName" name="eventName" data-selected="{{ $evento->id ?? '' }}"
-                            class="block w-full mt-1 border-gray-300 rounded-md" disabled onchange="fillEventDetails()">
-                            <option value="">Seleccione...</option>
-                        </select>
-                    </div>
-
-
-                    <!-- Campos de detalle -->
-                    <div class="mb-4">
-                        <label for="eventLocation" class="block text-sm font-medium text-gray-700"
-                            style="font-size: 1.25rem;">Lugar:</label>
-                        <input type="text" id="eventLocation" class="block w-full mt-1 border-gray-300 rounded-md"
-                            value="{{ $evento->ubicacion ?? '' }}" readonly>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="eventDate" class="block text-sm font-medium text-gray-700"
-                            style="font-size: 1.25rem;">Fecha:</label>
-                        <input type="text" id="eventDate" class="block w-full mt-1 border-gray-300 rounded-md"
-                            value="{{ $evento->fecha ?? '' }}" readonly>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="eventTime" class="block text-sm font-medium text-gray-700"
-                            style="font-size: 1.25rem;">Hora:</label>
-                        <input type="text" id="eventTime" class="block w-full mt-1 border-gray-300 rounded-md"
-                            value="{{ $evento->hora ?? '' }}" readonly>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="eventDescription" class="block text-sm font-medium text-gray-700"
-                            style="font-size: 1.25rem;">Descripción:</label>
-                        <textarea id="eventDescription" class="block w-full mt-1 border-gray-300 rounded-md" rows="3" readonly>{{ $evento->descripcion ?? '' }}</textarea>
-                    </div>
-
-                    <div class="text-left">
-                        <button type="button" onclick="addRecordatorio()"
-                            class="px-10 py-4 text-lg font-bold text-white bg-green-700 rounded-md hover:bg-green-500">
-                            Añadir Recordatorio
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
-
 
 
 
